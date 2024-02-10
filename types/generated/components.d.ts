@@ -33,6 +33,20 @@ export interface ProductVariants extends Schema.Component {
   };
 }
 
+export interface StaticCampaign extends Schema.Component {
+  collectionName: 'components_static_campaigns';
+  info: {
+    displayName: 'Campaign';
+  };
+  attributes: {
+    image: Attribute.Media & Attribute.Required;
+    heading: Attribute.String & Attribute.Required;
+    subHeading: Attribute.String & Attribute.Required;
+    btnText: Attribute.String & Attribute.Required;
+    btnLink: Attribute.String & Attribute.Required & Attribute.DefaultTo<'/'>;
+  };
+}
+
 export interface StaticFact extends Schema.Component {
   collectionName: 'components_static_facts';
   info: {
@@ -89,6 +103,7 @@ declare module '@strapi/types' {
       'product.option': ProductOption;
       'product.tag': ProductTag;
       'product.variants': ProductVariants;
+      'static.campaign': StaticCampaign;
       'static.fact': StaticFact;
       'static.people': StaticPeople;
       'user.address': UserAddress;
