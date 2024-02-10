@@ -16,11 +16,6 @@
       "type": "text",
       "required": true
     },
-    "people": {
-      "type": "component",
-      "repeatable": true,
-      "component": "static.people"
-    },
     "rightImg": {
       "type": "media",
       "multiple": false,

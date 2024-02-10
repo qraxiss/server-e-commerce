@@ -795,7 +795,6 @@ export interface ApiAboutAbout extends Schema.SingleType {
   };
   attributes: {
     text: Attribute.Text & Attribute.Required;
-    people: Attribute.Component<'static.people', true>;
     rightImg: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -883,16 +882,16 @@ export interface ApiLogoLogo extends Schema.SingleType {
     singularName: 'logo';
     pluralName: 'logos';
     displayName: 'logo';
+    description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     icon: Attribute.Media;
     text: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::logo.logo', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::logo.logo', 'oneToOne', 'admin::user'> &
@@ -906,15 +905,15 @@ export interface ApiPeoplePeople extends Schema.SingleType {
     singularName: 'people';
     pluralName: 'peoples';
     displayName: 'people';
+    description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     people: Attribute.Component<'static.people', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::people.people',
       'oneToOne',
