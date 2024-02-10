@@ -929,6 +929,37 @@ export interface ApiLogoLogo extends Schema.SingleType {
   };
 }
 
+export interface ApiMessageMessage extends Schema.CollectionType {
+  collectionName: 'messages';
+  info: {
+    singularName: 'message';
+    pluralName: 'messages';
+    displayName: 'message';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    message: Attribute.Text & Attribute.Required;
+    name: Attribute.String & Attribute.Required;
+    email: Attribute.String & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::message.message',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::message.message',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPeoplePeople extends Schema.SingleType {
   collectionName: 'peoples';
   info: {
@@ -1067,6 +1098,7 @@ declare module '@strapi/types' {
       'api::cart.cart': ApiCartCart;
       'api::category.category': ApiCategoryCategory;
       'api::logo.logo': ApiLogoLogo;
+      'api::message.message': ApiMessageMessage;
       'api::people.people': ApiPeoplePeople;
       'api::product.product': ApiProductProduct;
     }
