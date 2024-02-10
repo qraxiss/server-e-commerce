@@ -33,6 +33,26 @@ export interface ProductVariants extends Schema.Component {
   };
 }
 
+export interface StaticFact extends Schema.Component {
+  collectionName: 'components_static_facts';
+  info: {
+    displayName: 'fact';
+  };
+  attributes: {};
+}
+
+export interface StaticPeople extends Schema.Component {
+  collectionName: 'components_static_people';
+  info: {
+    displayName: 'people';
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    avatar: Attribute.Media;
+    job: Attribute.String & Attribute.Required;
+  };
+}
+
 export interface UserAddress extends Schema.Component {
   collectionName: 'components_user_addresses';
   info: {
@@ -69,6 +89,8 @@ declare module '@strapi/types' {
       'product.option': ProductOption;
       'product.tag': ProductTag;
       'product.variants': ProductVariants;
+      'static.fact': StaticFact;
+      'static.people': StaticPeople;
       'user.address': UserAddress;
       'user.cart': UserCart;
     }

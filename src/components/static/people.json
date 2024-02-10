@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_static_people",
+  "info": {
+    "displayName": "people"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "avatar": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": false
+    },
+    "job": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
