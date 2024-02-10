@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_product_options",
+  "info": {
+    "displayName": "option",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "value": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

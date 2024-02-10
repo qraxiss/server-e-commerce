@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_user_carts",
+  "info": {
+    "displayName": "cart"
+  },
+  "options": {},
+  "attributes": {
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product"
+    }
+  }
+}

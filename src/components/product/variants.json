@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_product_variants",
+  "info": {
+    "displayName": "variant",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "options": {
+      "type": "component",
+      "repeatable": true,
+      "component": "product.option"
+    },
+    "type": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
