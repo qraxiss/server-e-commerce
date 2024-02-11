@@ -67,6 +67,18 @@ export interface StaticPeople extends Schema.Component {
   };
 }
 
+export interface StaticSocial extends Schema.Component {
+  collectionName: 'components_static_socials';
+  info: {
+    displayName: 'social';
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    icon: Attribute.Media;
+    href: Attribute.String & Attribute.Required;
+  };
+}
+
 export interface UserAddress extends Schema.Component {
   collectionName: 'components_user_addresses';
   info: {
@@ -106,6 +118,7 @@ declare module '@strapi/types' {
       'static.campaign': StaticCampaign;
       'static.fact': StaticFact;
       'static.people': StaticPeople;
+      'static.social': StaticSocial;
       'user.address': UserAddress;
       'user.cart': UserCart;
     }
