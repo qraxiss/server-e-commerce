@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { user, mutation as pcmutation } from "./user";
+import { cart, mutation as pcmutation } from "./cart";
 
 let typeList = [pcmutation];
 
@@ -9,8 +9,8 @@ export function createCustomMutationResolver({ strapi }) {
 
     resolvers: {
       Query: {
-        user: {
-          resolve: user,
+        cart: {
+          resolve: cart,
         },
       },
     },

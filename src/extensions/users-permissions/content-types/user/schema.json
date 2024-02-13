@@ -65,15 +65,15 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "cart": {
-      "type": "component",
-      "repeatable": false,
-      "component": "user.cart"
-    },
     "address": {
       "type": "component",
       "repeatable": false,
       "component": "user.address"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product"
     }
   }
 }
