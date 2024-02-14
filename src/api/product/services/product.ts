@@ -1,58 +1,28 @@
-/**
- * product service
- */
-
 import { factories } from "@strapi/strapi";
+import slugify from "slugify";
+import randomstring from "randomstring";
 
 export default factories.createCoreService(
   "api::product.product",
   ({ strapi }) => ({
-    // Method 1: Creating an entirely new custom service
-    async exampleService(...args) {
-      let response = { okay: true };
-
-      if (response.okay === false) {
-        return { response, error: true };
-      }
-
-      return response;
-    },
-
     // Method 2: Wrapping a core service (leaves core logic in place)
-    async find(...args) {
-      // Calling the default core controller
-      const { results, pagination } = await super.find(...args);
+    async createWithSlug(params) {
+      // some logic here
+      console.log(params);
 
-      // some custom logic
-      results.forEach((result) => {
-        result.counter = 1;
+      params.slug = slugify(`${params.name}`, {
+        lower: true,
       });
 
-      return { results, pagination, hi: "selam dünya" };
-    },
+      console.log(params);
 
-    // Method 3: Replacing a core service
+      const result = await strapi.entityService.create("api::product.product", {
+        data: params,
+      });
+
+      return result;
+
+      //   strapi.entityService.create
+    },
   })
 );
-
-// import schemas from "../../../../schemas";
-// import content_schemas from "../../../../general-schemas";
-
-// export default factories.createCoreService(
-//   "api::article.article",
-//   ({ strapi }): {} => ({
-//     async create(params: {
-//       data: content_schemas.GetAttributesValues<"api::article.article">;
-//       files: content_schemas.GetAttributesValues<"plugin::upload.file">;
-//     }): Promise<schemas.ApiArticleArticle> {
-//       params.data.publishedAt = Date.now().toString();
-//       const results = await strapi.entityService.create(
-//         "api::article.article",
-//         {
-//           data: params.data,
-//         }
-//       );
-//       return results;
-//     },
-//   })
-// );

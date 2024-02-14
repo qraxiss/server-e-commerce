@@ -1039,6 +1039,13 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'manyToMany',
       'api::category.category'
     >;
+    slug: Attribute.String &
+      Attribute.Unique &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

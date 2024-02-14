@@ -6,10 +6,16 @@ import {
   cretateCategoryWithSlug,
 } from "./category";
 
+import {
+  createProductWithSlugMutation,
+  cretateProductWithSlug,
+} from "./product";
+
 let typeList = [
   pcmutation,
   getParentCategoriesMutation,
   createCategoryWithSlugMutation,
+  createProductWithSlugMutation,
 ];
 
 export function createCustomMutationResolver({ strapi }) {
@@ -28,6 +34,9 @@ export function createCustomMutationResolver({ strapi }) {
       Mutation: {
         cretateCategoryWithSlug: {
           resolve: cretateCategoryWithSlug,
+        },
+        cretateProductWithSlug: {
+          resolve: cretateProductWithSlug,
         },
       },
     },

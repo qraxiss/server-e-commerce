@@ -81,6 +81,15 @@
       "relation": "manyToMany",
       "target": "api::category.category",
       "mappedBy": "products"
+    },
+    "slug": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "unique": true
     }
   }
 }
