@@ -8,8 +8,9 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
+  "pluginOptions": {},
   "attributes": {
     "text": {
       "type": "string"
@@ -19,6 +20,20 @@
       "relation": "manyToMany",
       "target": "api::product.product",
       "inversedBy": "categories"
+    },
+    "parent": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
+    "childs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category"
+    },
+    "slug": {
+      "type": "string",
+      "unique": true
     }
   }
 }

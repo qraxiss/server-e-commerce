@@ -49,15 +49,4 @@ export const cart = async (parent, args, context) => {
     console.log(error.message);
     throw new GraphQLError(error.message);
   }
-
-  // return await strapi.db.query("api::cart.cart").findOne({
-  //   populate: {
-  //     user: {
-  //       filters: {
-  //         id: data.id,
-  //       },
-  //     },
-  //     products: "*",
-  //   },
-  // });
 };

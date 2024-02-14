@@ -856,7 +856,7 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     text: Attribute.String;
@@ -865,9 +865,19 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'manyToMany',
       'api::product.product'
     >;
+    parent: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'api::category.category'
+    >;
+    childs: Attribute.Relation<
+      'api::category.category',
+      'oneToMany',
+      'api::category.category'
+    >;
+    slug: Attribute.String & Attribute.Unique;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::category.category',
       'oneToOne',
