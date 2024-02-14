@@ -12,8 +12,6 @@ export default factories.createCoreController(
         .service("api::category.category")
         .createWithSlug(ctx);
 
-      console.log("TEST AMK");
-
       return result;
     },
   })

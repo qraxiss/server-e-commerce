@@ -46,7 +46,6 @@ export const cart = async (parent, args, context) => {
 
     return data.products;
   } catch (error) {
-    console.log(error.message);
     throw new GraphQLError(error.message);
   }
 };
