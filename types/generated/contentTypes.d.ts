@@ -859,7 +859,7 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    text: Attribute.String;
+    name: Attribute.String;
     products: Attribute.Relation<
       'api::category.category',
       'manyToMany',

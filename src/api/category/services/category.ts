@@ -6,7 +6,7 @@ export default factories.createCoreService(
   "api::category.category",
   ({ strapi }) => ({
     async createWithSlug(params) {
-      params.slug = slugify(`${params.text}`, {
+      params.slug = slugify(`${params.name}`, {
         lower: true,
       });
 
