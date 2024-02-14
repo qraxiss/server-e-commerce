@@ -10,6 +10,20 @@ export default factories.createCoreService(
         lower: true,
       });
 
+      const category = await strapi.db.query("api::category.category").findOne({
+        where: {
+          slug: params.slug,
+        },
+      });
+
+      if (category) {
+        params.slug = `${params.slug}-${randomstring.generate({
+          length: 3,
+          charset: "alphabetic",
+          capitalization: "lowercase",
+        })}`;
+      }
+
       const result = await strapi.entityService.create(
         "api::category.category",
         {
