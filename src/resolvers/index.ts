@@ -1,11 +1,10 @@
-import gql from "graphql-tag";
 import { cart, mutation as pcmutation } from "./cart";
 import {
   getParentCategoriesMutation,
   getParentCategories,
   createCategoryWithSlugMutation,
   cretateCategoryWithSlug,
-} from "./categories";
+} from "./category";
 
 let typeList = [
   pcmutation,
