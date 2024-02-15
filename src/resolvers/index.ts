@@ -25,9 +25,11 @@ export function createCustomMutationResolver({ strapi }) {
     resolvers: {
       Query: {
         cart: {
+          auth: false,
           resolve: cart,
         },
         getParentCategories: {
+          auth: false,
           resolve: getParentCategories,
         },
       },
