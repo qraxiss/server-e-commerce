@@ -21,15 +21,17 @@ let typeList = [
 export function createCustomMutationResolver({ strapi }) {
   return {
     typeDefs: typeList.join("\n"),
-
+    resolversConfig: {
+      "Query.getParentCategories": {
+        auth: false,
+      },
+    },
     resolvers: {
       Query: {
         cart: {
-          auth: false,
           resolve: cart,
         },
         getParentCategories: {
-          auth: false,
           resolve: getParentCategories,
         },
       },
