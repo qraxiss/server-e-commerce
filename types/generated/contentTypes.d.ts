@@ -894,6 +894,39 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   };
 }
 
+export interface ApiContactContact extends Schema.CollectionType {
+  collectionName: 'contacts';
+  info: {
+    singularName: 'contact';
+    pluralName: 'contacts';
+    displayName: 'contact';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    subject: Attribute.String & Attribute.Required;
+    email: Attribute.Email & Attribute.Required;
+    message: Attribute.Text & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::contact.contact',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::contact.contact',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiFooterFooter extends Schema.SingleType {
   collectionName: 'footers';
   info: {
@@ -908,6 +941,7 @@ export interface ApiFooterFooter extends Schema.SingleType {
   attributes: {
     shopcek: Attribute.Component<'static.footer-item', true>;
     legal: Attribute.Component<'static.footer-item', true>;
+    about: Attribute.String & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -948,30 +982,28 @@ export interface ApiLogoLogo extends Schema.SingleType {
   };
 }
 
-export interface ApiMessageMessage extends Schema.CollectionType {
-  collectionName: 'messages';
+export interface ApiNewsletterNewsletter extends Schema.CollectionType {
+  collectionName: 'newsletters';
   info: {
-    singularName: 'message';
-    pluralName: 'messages';
-    displayName: 'message';
+    singularName: 'newsletter';
+    pluralName: 'newsletters';
+    displayName: 'newsletter';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    message: Attribute.Text & Attribute.Required;
-    name: Attribute.String & Attribute.Required;
-    email: Attribute.String & Attribute.Required;
+    email: Attribute.Email & Attribute.Unique;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::message.message',
+      'api::newsletter.newsletter',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::message.message',
+      'api::newsletter.newsletter',
       'oneToOne',
       'admin::user'
     > &
@@ -1146,9 +1178,10 @@ declare module '@strapi/types' {
       'api::about.about': ApiAboutAbout;
       'api::campaign.campaign': ApiCampaignCampaign;
       'api::category.category': ApiCategoryCategory;
+      'api::contact.contact': ApiContactContact;
       'api::footer.footer': ApiFooterFooter;
       'api::logo.logo': ApiLogoLogo;
-      'api::message.message': ApiMessageMessage;
+      'api::newsletter.newsletter': ApiNewsletterNewsletter;
       'api::people.people': ApiPeoplePeople;
       'api::product.product': ApiProductProduct;
       'api::social.social': ApiSocialSocial;
