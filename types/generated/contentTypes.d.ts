@@ -1022,12 +1022,6 @@ export interface ApiProductProduct extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    tags: Attribute.Component<'product.tag', true> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     variants: Attribute.Component<'product.variants', true> &
       Attribute.SetPluginOptions<{
         i18n: {

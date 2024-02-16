@@ -56,16 +56,6 @@
       "type": "text",
       "required": true
     },
-    "tags": {
-      "type": "component",
-      "repeatable": true,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "product.tag"
-    },
     "variants": {
       "type": "component",
       "repeatable": true,
