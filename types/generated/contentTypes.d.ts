@@ -1101,6 +1101,7 @@ export interface ApiSocialSocial extends Schema.SingleType {
     singularName: 'social';
     pluralName: 'socials';
     displayName: 'social';
+    description: '';
   };
   options: {
     draftAndPublish: false;

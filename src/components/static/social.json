@@ -1,7 +1,8 @@
 {
   "collectionName": "components_static_socials",
   "info": {
-    "displayName": "social"
+    "displayName": "social",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -10,13 +11,14 @@
       "required": true
     },
     "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
-    "href": {
+    "url": {
       "type": "string",
       "required": true
     }

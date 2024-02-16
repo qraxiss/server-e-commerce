@@ -82,11 +82,12 @@ export interface StaticSocial extends Schema.Component {
   collectionName: 'components_static_socials';
   info: {
     displayName: 'social';
+    description: '';
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
-    icon: Attribute.Media;
-    href: Attribute.String & Attribute.Required;
+    icon: Attribute.Media & Attribute.Required;
+    url: Attribute.String & Attribute.Required;
   };
 }
 
