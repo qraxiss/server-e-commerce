@@ -55,6 +55,17 @@ export interface StaticFact extends Schema.Component {
   attributes: {};
 }
 
+export interface StaticFooterItem extends Schema.Component {
+  collectionName: 'components_static_footer_items';
+  info: {
+    displayName: 'footerItem';
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    url: Attribute.String & Attribute.Required;
+  };
+}
+
 export interface StaticPeople extends Schema.Component {
   collectionName: 'components_static_people';
   info: {
@@ -117,6 +128,7 @@ declare module '@strapi/types' {
       'product.variants': ProductVariants;
       'static.campaign': StaticCampaign;
       'static.fact': StaticFact;
+      'static.footer-item': StaticFooterItem;
       'static.people': StaticPeople;
       'static.social': StaticSocial;
       'user.address': UserAddress;

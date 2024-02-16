@@ -23,6 +23,9 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "footerAbout": {
+      "type": "string"
     }
   }
 }

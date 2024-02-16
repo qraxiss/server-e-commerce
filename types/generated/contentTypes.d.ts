@@ -800,6 +800,7 @@ export interface ApiAboutAbout extends Schema.SingleType {
   attributes: {
     text: Attribute.Text & Attribute.Required;
     rightImg: Attribute.Media;
+    footerAbout: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -886,6 +887,37 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiFooterFooter extends Schema.SingleType {
+  collectionName: 'footers';
+  info: {
+    singularName: 'footer';
+    pluralName: 'footers';
+    displayName: 'footer';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    shopcek: Attribute.Component<'static.footer-item', true>;
+    legal: Attribute.Component<'static.footer-item', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::footer.footer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::footer.footer',
       'oneToOne',
       'admin::user'
     > &
@@ -1113,6 +1145,7 @@ declare module '@strapi/types' {
       'api::about.about': ApiAboutAbout;
       'api::campaign.campaign': ApiCampaignCampaign;
       'api::category.category': ApiCategoryCategory;
+      'api::footer.footer': ApiFooterFooter;
       'api::logo.logo': ApiLogoLogo;
       'api::message.message': ApiMessageMessage;
       'api::people.people': ApiPeoplePeople;

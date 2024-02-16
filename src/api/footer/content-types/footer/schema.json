@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "footers",
+  "info": {
+    "singularName": "footer",
+    "pluralName": "footers",
+    "displayName": "footer",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "shopcek": {
+      "type": "component",
+      "repeatable": true,
+      "component": "static.footer-item"
+    },
+    "legal": {
+      "type": "component",
+      "repeatable": true,
+      "component": "static.footer-item"
+    }
+  }
+}
