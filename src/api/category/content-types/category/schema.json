@@ -21,11 +21,6 @@
       "target": "api::product.product",
       "inversedBy": "categories"
     },
-    "parent": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::category.category"
-    },
     "childs": {
       "type": "relation",
       "relation": "oneToMany",

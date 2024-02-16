@@ -7,11 +7,9 @@ export const mutation = `
 export async function getParentCategories() {
   let data = await strapi.db.query("api::category.category").findMany({
     populate: {
-      parent: "*",
       childs: "*",
     },
     where: {
-      parent: null,
       $not: {
         childs: null,
       },

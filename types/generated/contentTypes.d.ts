@@ -866,11 +866,6 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'manyToMany',
       'api::product.product'
     >;
-    parent: Attribute.Relation<
-      'api::category.category',
-      'oneToOne',
-      'api::category.category'
-    >;
     childs: Attribute.Relation<
       'api::category.category',
       'oneToMany',
