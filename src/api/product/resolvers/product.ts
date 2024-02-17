@@ -13,3 +13,19 @@ export async function createProductWithSlug(obj, options, { context }) {
 
   return result;
 }
+
+export const getProductWithSlugType = `
+  type Query {
+    getProductWithSlug (slug: String!): Product!
+  }
+`;
+
+export async function getProductWithSlug(obj, args, context) {
+  const data = await strapi.db.query("api::product.product").findOne({
+    where: {
+      slug: args.slug,
+    },
+  });
+
+  return data;
+}

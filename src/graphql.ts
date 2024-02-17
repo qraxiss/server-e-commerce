@@ -8,12 +8,15 @@ import {
 import {
   createProductWithSlug,
   createProductWithSlugType,
+  getProductWithSlug,
+  getProductWithSlugType,
 } from "./api/product/resolvers/product";
 
 let typeList = [
   getParentCategoriesType,
   createProductWithSlugType,
   createCategoryWithSlugType,
+  getProductWithSlugType,
 ];
 
 export function createCustomMutationResolver({ strapi }) {
@@ -24,12 +27,18 @@ export function createCustomMutationResolver({ strapi }) {
         getParentCategories: {
           auth: false,
         },
+        getProductWithSlug: {
+          auth: false,
+        },
       },
     },
     resolvers: {
       Query: {
         getParentCategories: {
           resolve: getParentCategories,
+        },
+        getProductWithSlug: {
+          resolve: getProductWithSlug,
         },
       },
       Mutation: {
