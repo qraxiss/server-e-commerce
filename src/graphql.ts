@@ -1,36 +1,33 @@
-import { cart, mutation as pcmutation } from "./cart";
 import {
-  getParentCategoriesMutation,
   getParentCategories,
-  createCategoryWithSlugMutation,
+  getParentCategoriesType,
   cretateCategoryWithSlug,
-} from "./category";
+  createCategoryWithSlugType,
+} from "./api/category/resolvers/category";
 
 import {
-  createProductWithSlugMutation,
-  cretateProductWithSlug,
-} from "./product";
+  createProductWithSlug,
+  createProductWithSlugType,
+} from "./api/product/resolvers/product";
 
 let typeList = [
-  pcmutation,
-  getParentCategoriesMutation,
-  createCategoryWithSlugMutation,
-  createProductWithSlugMutation,
+  getParentCategoriesType,
+  createProductWithSlugType,
+  createCategoryWithSlugType,
 ];
 
 export function createCustomMutationResolver({ strapi }) {
   return {
     typeDefs: typeList.join("\n"),
     resolversConfig: {
-      "Query.getParentCategories": {
-        auth: false,
+      Query: {
+        getParentCategories: {
+          auth: false,
+        },
       },
     },
     resolvers: {
       Query: {
-        cart: {
-          resolve: cart,
-        },
         getParentCategories: {
           resolve: getParentCategories,
         },
@@ -40,7 +37,7 @@ export function createCustomMutationResolver({ strapi }) {
           resolve: cretateCategoryWithSlug,
         },
         cretateProductWithSlug: {
-          resolve: cretateProductWithSlug,
+          resolve: createProductWithSlug,
         },
       },
     },

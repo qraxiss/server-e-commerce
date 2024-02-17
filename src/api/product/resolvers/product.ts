@@ -1,10 +1,10 @@
-export const mutation = `
+export const createProductWithSlugType = `
   type Mutation  {
     cretateProductWithSlug(data: ProductInput!): Product!
   }
 `;
 
-export async function cretateProductWithSlug(obj, options, { context }) {
+export async function createProductWithSlug(obj, options, { context }) {
   let data = JSON.parse(JSON.stringify(options.data));
 
   const result = await strapi
