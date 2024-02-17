@@ -5,14 +5,14 @@ import {
   createCategoryWithSlugType,
   getCategoryWithSlug,
   getCategoryWithSlugType,
-} from "./api/category/resolvers/category";
+} from "./category";
 
 import {
   createProductWithSlug,
   createProductWithSlugType,
   getProductWithSlug,
   getProductWithSlugType,
-} from "./api/product/resolvers/product";
+} from "./product";
 
 let typeList = [
   getParentCategoriesType,

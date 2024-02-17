@@ -1,4 +1,4 @@
-import { createCustomMutationResolver } from "./graphql";
+import { createCustomMutationResolver } from "./resolvers";
 
 export default {
   register({ strapi }) {
