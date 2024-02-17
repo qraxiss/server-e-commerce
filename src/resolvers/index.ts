@@ -14,7 +14,10 @@ import {
   getProductWithSlugType,
 } from "./product";
 
+import { getCart, getCartType } from "./cart";
+
 let typeList = [
+  getCartType,
   getParentCategoriesType,
   createProductWithSlugType,
   createCategoryWithSlugType,
@@ -40,6 +43,9 @@ export function createCustomMutationResolver({ strapi }) {
     },
     resolvers: {
       Query: {
+        getCart:{
+          resolve: getCart
+        },
         getParentCategories: {
           resolve: getParentCategories,
         },
