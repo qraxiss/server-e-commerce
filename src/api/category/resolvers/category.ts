@@ -34,3 +34,21 @@ export async function getParentCategories() {
 
   return data;
 }
+
+export const getCategoryWithSlugType = `
+  type Query {
+    getCategoryWithSlug (slug: String!): Category!
+  }
+`;
+
+export async function getCategoryWithSlug(obj, args, context) {
+  const data = await strapi.db.query("api::category.category").findOne({
+    where: {
+      slug: args.slug,
+    },
+  });
+
+  console.log(data);
+
+  return data;
+}

@@ -3,6 +3,8 @@ import {
   getParentCategoriesType,
   cretateCategoryWithSlug,
   createCategoryWithSlugType,
+  getCategoryWithSlug,
+  getCategoryWithSlugType,
 } from "./api/category/resolvers/category";
 
 import {
@@ -17,6 +19,7 @@ let typeList = [
   createProductWithSlugType,
   createCategoryWithSlugType,
   getProductWithSlugType,
+  getCategoryWithSlugType,
 ];
 
 export function createCustomMutationResolver({ strapi }) {
@@ -30,6 +33,9 @@ export function createCustomMutationResolver({ strapi }) {
         getProductWithSlug: {
           auth: false,
         },
+        getCategoryWithSlug: {
+          auth: false,
+        },
       },
     },
     resolvers: {
@@ -39,6 +45,9 @@ export function createCustomMutationResolver({ strapi }) {
         },
         getProductWithSlug: {
           resolve: getProductWithSlug,
+        },
+        getCategoryWithSlug: {
+          resolve: getCategoryWithSlug,
         },
       },
       Mutation: {
