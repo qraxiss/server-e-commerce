@@ -127,6 +127,7 @@ export interface UserAddress extends Schema.Component {
         zipCode: Attribute.String & Attribute.Required
         state: Attribute.String
         addressLine2: Attribute.String & Attribute.Required
+        addressName: Attribute.String & Attribute.Required
     }
 }
 

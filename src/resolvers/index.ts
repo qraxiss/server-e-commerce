@@ -11,7 +11,7 @@ import { createProductWithSlug, createProductWithSlugType, getProductWithSlug, g
 
 import { getCart, getCartType, addProductToCart, addProductToCartType } from './cart'
 
-import { profilePicture, profilePictureType } from './user'
+import { profilePicture, profilePictureType, accountInformation, accountInformationType } from './user'
 
 let typeList = [
     getCartType,
@@ -21,7 +21,8 @@ let typeList = [
     getProductWithSlugType,
     getCategoryWithSlugType,
     addProductToCartType,
-    profilePictureType
+    profilePictureType,
+    accountInformationType
 ]
 
 export function createCustomMutationResolver({ strapi }) {
@@ -37,6 +38,9 @@ export function createCustomMutationResolver({ strapi }) {
                 },
                 getCategoryWithSlug: {
                     auth: false
+                },
+                profilePicture: {
+                  auth: false
                 }
             }
         },
@@ -56,6 +60,9 @@ export function createCustomMutationResolver({ strapi }) {
                 },
                 profilePicture: {
                     resolve: profilePicture
+                },
+                accountInformation: {
+                  resolve: accountInformation
                 }
             },
             Mutation: {
