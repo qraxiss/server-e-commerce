@@ -2,6 +2,6 @@
  * social router
  */
 
-import { factories } from '@strapi/strapi';
+import { factories } from '@strapi/strapi'
 
-export default factories.createCoreRouter('api::social.social');
+export default factories.createCoreRouter('api::social.social')

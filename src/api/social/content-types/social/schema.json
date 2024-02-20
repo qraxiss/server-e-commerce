@@ -1,22 +1,22 @@
 {
-  "kind": "singleType",
-  "collectionName": "socials",
-  "info": {
-    "singularName": "social",
-    "pluralName": "socials",
-    "displayName": "social",
-    "description": ""
-  },
-  "options": {
-    "draftAndPublish": false
-  },
-  "pluginOptions": {},
-  "attributes": {
-    "socials": {
-      "displayName": "social",
-      "type": "component",
-      "repeatable": true,
-      "component": "static.social"
+    "kind": "singleType",
+    "collectionName": "socials",
+    "info": {
+        "singularName": "social",
+        "pluralName": "socials",
+        "displayName": "social",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "socials": {
+            "displayName": "social",
+            "type": "component",
+            "repeatable": true,
+            "component": "static.social"
+        }
     }
-  }
 }

@@ -1,32 +1,32 @@
 {
-  "kind": "collectionType",
-  "collectionName": "contacts",
-  "info": {
-    "singularName": "contact",
-    "pluralName": "contacts",
-    "displayName": "contact",
-    "description": ""
-  },
-  "options": {
-    "draftAndPublish": false
-  },
-  "pluginOptions": {},
-  "attributes": {
-    "name": {
-      "type": "string",
-      "required": true
+    "kind": "collectionType",
+    "collectionName": "contacts",
+    "info": {
+        "singularName": "contact",
+        "pluralName": "contacts",
+        "displayName": "contact",
+        "description": ""
     },
-    "subject": {
-      "type": "string",
-      "required": true
+    "options": {
+        "draftAndPublish": false
     },
-    "email": {
-      "type": "email",
-      "required": true
-    },
-    "message": {
-      "type": "text",
-      "required": true
+    "pluginOptions": {},
+    "attributes": {
+        "name": {
+            "type": "string",
+            "required": true
+        },
+        "subject": {
+            "type": "string",
+            "required": true
+        },
+        "email": {
+            "type": "email",
+            "required": true
+        },
+        "message": {
+            "type": "text",
+            "required": true
+        }
     }
-  }
 }

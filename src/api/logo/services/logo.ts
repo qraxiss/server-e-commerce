@@ -2,6 +2,6 @@
  * logo service
  */
 
-import { factories } from '@strapi/strapi';
+import { factories } from '@strapi/strapi'
 
-export default factories.createCoreService('api::logo.logo');
+export default factories.createCoreService('api::logo.logo')

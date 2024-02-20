@@ -1,17 +1,17 @@
 {
-  "collectionName": "components_static_footer_items",
-  "info": {
-    "displayName": "footerItem"
-  },
-  "options": {},
-  "attributes": {
-    "name": {
-      "type": "string",
-      "required": true
+    "collectionName": "components_static_footer_items",
+    "info": {
+        "displayName": "footerItem"
     },
-    "url": {
-      "type": "string",
-      "required": true
+    "options": {},
+    "attributes": {
+        "name": {
+            "type": "string",
+            "required": true
+        },
+        "url": {
+            "type": "string",
+            "required": true
+        }
     }
-  }
 }

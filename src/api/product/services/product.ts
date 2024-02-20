@@ -1,20 +1,17 @@
-import { factories } from "@strapi/strapi";
-import slugify from "slugify";
-import randomstring from "randomstring";
+import { factories } from '@strapi/strapi'
+import slugify from 'slugify'
+import randomstring from 'randomstring'
 
-export default factories.createCoreService(
-  "api::product.product",
-  ({ strapi }) => ({
+export default factories.createCoreService('api::product.product', ({ strapi }) => ({
     async createWithSlug(params) {
-      params.slug = slugify(`${params.name}`, {
-        lower: true,
-      });
+        params.slug = slugify(`${params.name}`, {
+            lower: true
+        })
 
-      const result = await strapi.entityService.create("api::product.product", {
-        data: params,
-      });
+        const result = await strapi.entityService.create('api::product.product', {
+            data: params
+        })
 
-      return result;
-    },
-  })
-);
+        return result
+    }
+}))

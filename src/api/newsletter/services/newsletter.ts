@@ -2,6 +2,6 @@
  * newsletter service
  */
 
-import { factories } from '@strapi/strapi';
+import { factories } from '@strapi/strapi'
 
-export default factories.createCoreService('api::newsletter.newsletter');
+export default factories.createCoreService('api::newsletter.newsletter')

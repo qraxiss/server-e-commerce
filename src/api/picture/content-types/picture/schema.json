@@ -1,0 +1,21 @@
+{
+    "kind": "singleType",
+    "collectionName": "pictures",
+    "info": {
+        "singularName": "picture",
+        "pluralName": "pictures",
+        "displayName": "Default Picture"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "profilePicture": {
+            "allowedTypes": ["images"],
+            "type": "media",
+            "multiple": false,
+            "required": true
+        }
+    }
+}
