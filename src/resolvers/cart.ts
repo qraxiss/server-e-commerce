@@ -1,4 +1,4 @@
-import { productBySlug } from './product'
+import { productBySlug, productsBySlug} from './product'
 
 export const cartType = `
     type Cart {
@@ -7,7 +7,7 @@ export const cartType = `
     }
 
     type Query  {
-        cart: JSON
+        cart: [Cart]
     }
 `
 
@@ -27,11 +27,22 @@ export async function cart(obj, options, { context }) {
         }
     })
 
-    // let product = await productBySlug({}, {}, {})
+    let products = result.cart.map((product:any)=>{
+        return product.product
+    })
 
-    console.log(result.cart)
+    let productObjects : any[] = await productsBySlug({}, {slugs: JSON.stringify(products)}, {})
 
-    return result.cart
+    let cart = result.cart.map((productElement:any)=>{
+        return {
+            product: productObjects.find(element => productElement.product === element.slug),
+            options: productElement.options
+        }
+    })
+
+    console.log(cart)
+
+    return cart
 }
 
 export const addProductToCartType = `

@@ -27,3 +27,24 @@ export async function productBySlug(obj, args, context) {
 
     return data
 }
+
+export const productsBySlugType = `
+  type Query {
+    productsBySlug (slugs: [String]!): [Product]!
+  }
+`
+
+export async function productsBySlug(obj, args, context) {
+  
+  
+  const data = await strapi.db.query('api::product.product').findMany({
+    filters: {
+      slug: {
+        $in: JSON.parse(args.slugs),
+      },
+    },
+    
+  })
+
+  return data
+}
