@@ -40,7 +40,7 @@ export function createCustomMutationResolver({ strapi }) {
                     auth: false
                 },
                 profilePicture: {
-                  auth: false
+                    auth: false
                 }
             }
         },
@@ -62,7 +62,7 @@ export function createCustomMutationResolver({ strapi }) {
                     resolve: profilePicture
                 },
                 accountInformation: {
-                  resolve: accountInformation
+                    resolve: accountInformation
                 }
             },
             Mutation: {

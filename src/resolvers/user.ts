@@ -7,13 +7,13 @@ export const profilePictureType = `
 export async function profilePicture(obj, options, { context }) {
     let user = strapi.requestContext.get().state.user
 
-    async function getDefaultPictures(){
+    async function getDefaultPictures() {
         let defaultPictures = await strapi.db.query('api::picture.picture').findOne({
             populate: {
                 profilePicture: '*'
             }
         })
-        return defaultPictures 
+        return defaultPictures
     }
 
     if (!user) {
@@ -31,7 +31,6 @@ export async function profilePicture(obj, options, { context }) {
 
     if (result.picture) return result.picture
 
-
     return (await getDefaultPictures()).profilePicture
 }
 
@@ -48,27 +47,23 @@ export const accountInformationType = `
   }
 `
 
-export async function accountInformation(obj, options, {context}){
+export async function accountInformation(obj, options, { context }) {
     let user = strapi.requestContext.get().state.user
 
-    if (!user){
+    if (!user) {
         throw new Error('You must logged in')
     }
-
 
     let result = await strapi.db.query('plugin::users-permissions.user').findOne({
         where: {
             id: user.id
         },
         populate: {
-            name : "*",
-            surname: "*",
-            addresses: "*"
+            name: '*',
+            surname: '*',
+            addresses: '*'
         }
     })
 
     return result
-
 }
-
-

@@ -1,19 +1,19 @@
 {
-  "collectionName": "components_product_variants",
-  "info": {
-    "displayName": "variant",
-    "description": ""
-  },
-  "options": {},
-  "attributes": {
-    "options": {
-      "type": "component",
-      "repeatable": true,
-      "component": "product.option"
+    "collectionName": "components_product_variants",
+    "info": {
+        "displayName": "variant",
+        "description": ""
     },
-    "name": {
-      "type": "string",
-      "required": true
+    "options": {},
+    "attributes": {
+        "options": {
+            "type": "component",
+            "repeatable": true,
+            "component": "product.option"
+        },
+        "name": {
+            "type": "string",
+            "required": true
+        }
     }
-  }
 }
