@@ -1,25 +1,25 @@
 import {
-    getParentCategories,
-    getParentCategoriesType,
-    cretateCategoryWithSlug,
+    parentCategories,
+    parentCategoriesType,
+    createCategoryWithSlug,
     createCategoryWithSlugType,
-    getCategoryWithSlug,
-    getCategoryWithSlugType
+    categoryBySlug,
+    categoryBySlugType
 } from './category'
 
-import { createProductWithSlug, createProductWithSlugType, getProductWithSlug, getProductWithSlugType } from './product'
+import { createProductWithSlug, createProductWithSlugType, productBySlug, productBySlugType } from './product'
 
-import { getCart, getCartType, addProductToCart, addProductToCartType } from './cart'
+import { cart, cartType, addProductToCart, addProductToCartType } from './cart'
 
 import { profilePicture, profilePictureType, accountInformation, accountInformationType } from './user'
 
 let typeList = [
-    getCartType,
-    getParentCategoriesType,
+    cartType,
+    parentCategoriesType,
     createProductWithSlugType,
     createCategoryWithSlugType,
-    getProductWithSlugType,
-    getCategoryWithSlugType,
+    productBySlugType,
+    categoryBySlugType,
     addProductToCartType,
     profilePictureType,
     accountInformationType
@@ -30,13 +30,13 @@ export function createCustomMutationResolver({ strapi }) {
         typeDefs: typeList.join('\n'),
         resolversConfig: {
             Query: {
-                getParentCategories: {
+                parentCategories: {
                     auth: false
                 },
-                getProductWithSlug: {
+                productBySlug: {
                     auth: false
                 },
-                getCategoryWithSlug: {
+                categoryBySlug: {
                     auth: false
                 },
                 profilePicture: {
@@ -46,17 +46,17 @@ export function createCustomMutationResolver({ strapi }) {
         },
         resolvers: {
             Query: {
-                getCart: {
-                    resolve: getCart
+                cart: {
+                    resolve: cart
                 },
-                getParentCategories: {
-                    resolve: getParentCategories
+                parentCategories: {
+                    resolve: parentCategories
                 },
-                getProductWithSlug: {
-                    resolve: getProductWithSlug
+                productBySlug: {
+                    resolve: productBySlug
                 },
-                getCategoryWithSlug: {
-                    resolve: getCategoryWithSlug
+                categoryBySlug: {
+                    resolve: categoryBySlug
                 },
                 profilePicture: {
                     resolve: profilePicture
@@ -69,10 +69,10 @@ export function createCustomMutationResolver({ strapi }) {
                 addProductToCart: {
                     resolve: addProductToCart
                 },
-                cretateCategoryWithSlug: {
-                    resolve: cretateCategoryWithSlug
+                createCategoryWithSlug: {
+                    resolve: createCategoryWithSlug
                 },
-                cretateProductWithSlug: {
+                createProductWithSlug: {
                     resolve: createProductWithSlug
                 }
             }

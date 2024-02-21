@@ -1,10 +1,10 @@
-export const getCartType = `
+export const cartType = `
   type Query  {
-    getCart: JSON!
+    cart: JSON!
   }
 `
 
-export async function getCart(obj, options, { context }) {
+export async function cart(obj, options, { context }) {
     let user = strapi.requestContext.get().state.user
 
     if (!user) {
@@ -35,7 +35,7 @@ export const addProductToCartType = `
     }
 `
 
-import { getProductWithSlug } from './product'
+import { productBySlug } from './product'
 
 export async function addProductToCart(obj, options, { context }) {
     let slug = options.slug as string
@@ -45,7 +45,7 @@ export async function addProductToCart(obj, options, { context }) {
     if (!user) {
         throw new Error("API TOKENS CAN'T ACCESS")
     }
-    let product = await getProductWithSlug({}, { slug }, {})
+    let product = await productBySlug({}, { slug }, {})
 
     let result = await strapi.db.query('plugin::users-permissions.user').update({
         where: {

@@ -1,10 +1,10 @@
 export const createCategoryWithSlugType = `
   type Mutation  {
-    cretateCategoryWithSlug(data: CategoryInput!): Category!
+    createCategoryWithSlug(data: CategoryInput!): Category!
   }
 `
 
-export async function cretateCategoryWithSlug(obj, options, { context }) {
+export async function createCategoryWithSlug(obj, options, { context }) {
     let data = JSON.parse(JSON.stringify(options.data))
 
     const result = await strapi.service('api::category.category').createWithSlug(data)
@@ -12,13 +12,13 @@ export async function cretateCategoryWithSlug(obj, options, { context }) {
     return result
 }
 
-export const getParentCategoriesType = `
+export const parentCategoriesType = `
   type Query {
-    getParentCategories: [CategoryEntity]!
+    parentCategories: [CategoryEntity]!
   }
 `
 
-export async function getParentCategories() {
+export async function parentCategories() {
     let data = await strapi.db.query('api::category.category').findMany({
         populate: {
             childs: '*'
@@ -33,13 +33,13 @@ export async function getParentCategories() {
     return data
 }
 
-export const getCategoryWithSlugType = `
+export const categoryBySlugType = `
   type Query {
-    getCategoryWithSlug (slug: String!): Category!
+    categoryBySlug (slug: String!): Category!
   }
 `
 
-export async function getCategoryWithSlug(obj, args, context) {
+export async function categoryBySlug(obj, args, context) {
     const data = await strapi.db.query('api::category.category').findOne({
         where: {
             slug: args.slug

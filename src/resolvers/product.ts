@@ -1,6 +1,6 @@
 export const createProductWithSlugType = `
   type Mutation  {
-    cretateProductWithSlug(data: ProductInput!): Product!
+    createProductWithSlug(data: ProductInput!): Product!
   }
 `
 
@@ -12,13 +12,13 @@ export async function createProductWithSlug(obj, options, { context }) {
     return result
 }
 
-export const getProductWithSlugType = `
+export const productBySlugType = `
   type Query {
-    getProductWithSlug (slug: String!): Product!
+    productBySlug (slug: String!): Product!
   }
 `
 
-export async function getProductWithSlug(obj, args, context) {
+export async function productBySlug(obj, args, context) {
     const data = await strapi.db.query('api::product.product').findOne({
         where: {
             slug: args.slug
