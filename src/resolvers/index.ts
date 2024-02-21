@@ -9,7 +9,7 @@ import {
 
 import { createProductWithSlug, createProductWithSlugType, productBySlug, productBySlugType, productsBySlug, productsBySlugType } from './product'
 
-import { cart, cartType, addProductToCart, addProductToCartType } from './cart'
+import { cart, cartType, addProductToCart, addProductToCartType, deleteProductFromCart, deleteProductFromCartType } from './cart'
 
 import { profilePicture, profilePictureType, accountInformation, accountInformationType } from './user'
 
@@ -23,7 +23,8 @@ let typeList = [
     addProductToCartType,
     profilePictureType,
     accountInformationType,
-    productsBySlugType
+    productsBySlugType,
+    deleteProductFromCartType
 ]
 
 export function createCustomMutationResolver({ strapi }) {
@@ -73,6 +74,9 @@ export function createCustomMutationResolver({ strapi }) {
                 }
             },
             Mutation: {
+                deleteProductFromCart: {
+                    resolve: deleteProductFromCart
+                },
                 addProductToCart: {
                     resolve: addProductToCart
                 },

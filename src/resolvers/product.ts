@@ -35,16 +35,14 @@ export const productsBySlugType = `
 `
 
 export async function productsBySlug(obj, args, context) {
-  
-  
-  const data = await strapi.db.query('api::product.product').findMany({
-    filters: {
-      slug: {
-        $in: JSON.parse(args.slugs),
-      },
-    },
-    
-  })
 
-  return data
+    const data = await strapi.entityService.findMany('api::product.product', {
+        filters: {
+            slug: {
+                $in: JSON.parse(args.slugs)
+            }
+        }
+    })
+
+    return data
 }

@@ -1,4 +1,4 @@
-import { productBySlug, productsBySlug} from './product'
+import { productBySlug, productsBySlug } from './product'
 
 export const cartType = `
     type Cart {
@@ -11,7 +11,7 @@ export const cartType = `
     }
 `
 
-export async function cart(obj, options, { context }) {
+export async function cart() {
     let user = strapi.requestContext.get().state.user
 
     if (!user) {
@@ -19,28 +19,31 @@ export async function cart(obj, options, { context }) {
     }
 
     let result = await strapi.db.query('plugin::users-permissions.user').findOne({
-        where: {
-            id: user.id
-        },
         populate: {
             cart: '*'
+        },
+        where: {
+            id: user.id
         }
     })
 
-    let products = result.cart.map((product:any)=>{
+    if (!result.cart) {
+        return []
+    }
+
+    let products = result?.cart?.map((product: any) => {
         return product.product
     })
 
-    let productObjects : any[] = await productsBySlug({}, {slugs: JSON.stringify(products)}, {})
+    let productObjects: any[] = await productsBySlug({}, { slugs: JSON.stringify(products) }, {})
 
-    let cart = result.cart.map((productElement:any)=>{
+
+    let cart = result.cart.map((productElement: any) => {
         return {
-            product: productObjects.find(element => productElement.product === element.slug),
+            product: productObjects.find((element) => productElement.product === element.slug),
             options: productElement.options
         }
     })
-
-    console.log(cart)
 
     return cart
 }
@@ -51,18 +54,14 @@ export const addProductToCartType = `
     }
 `
 
-
 export async function addProductToCart(obj, args, { context }) {
     let { slug, options } = args
     let user = strapi.requestContext.get().state.user
 
-    if (!user) {
-        throw new Error("API TOKENS CAN'T ACCESS")
-    }
     let product = await productBySlug({}, { slug }, {})
 
-    if (!product){
-        throw new Error("PRODUCT DOSENT EXIST")
+    if (!product) {
+        throw new Error('PRODUCT DOSENT EXIST')
     }
 
     let cart = (
@@ -76,18 +75,16 @@ export async function addProductToCart(obj, args, { context }) {
         })
     ).cart
 
-    console.log(cart)
 
-    if (!cart){
+    if (!cart) {
         cart = []
     }
 
     cart.push({
-        product:slug,
+        product: slug,
         options: JSON.parse(options)
     })
 
-    console.log(cart)
 
     let result = await strapi.db.query('plugin::users-permissions.user').update({
         where: {
@@ -95,6 +92,36 @@ export async function addProductToCart(obj, args, { context }) {
         },
         data: {
             cart: cart
+        },
+        populate: {
+            cart: '*'
+        }
+    })
+
+    return result
+}
+
+export const deleteProductFromCartType = `
+    type Mutation {
+        deleteProductFromCart(index: ID!): JSON!
+    }
+`
+
+export async function deleteProductFromCart(obj, args, { context }) {
+    let user = strapi.requestContext.get().state.user
+    let { index } = args
+
+    let cartData = (await cart()) as any[]
+    cartData = cartData.splice(index)
+
+    let result = await strapi.db.query('plugin::users-permissions.user').update({
+        where: {
+            id: user.id
+        },
+        data: {
+            cart: cartData.map((cart) => {
+                return { product: cart.product.slug, options: cart.options }
+            })
         },
         populate: {
             cart: '*'
