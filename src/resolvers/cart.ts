@@ -1,6 +1,6 @@
 export const getCartType = `
   type Query  {
-    getCart: [Product]!
+    getCart: JSON!
   }
 `
 
@@ -16,11 +16,17 @@ export async function getCart(obj, options, { context }) {
             id: user.id
         },
         populate: {
-            products: '*'
+            cart: {
+                populate: {
+                    options: '*',
+                    product: '*'
+                }
+            }
         }
     })
 
-    return result.products
+
+    return result.cart
 }
 
 export const addProductToCartType = `
@@ -55,5 +61,5 @@ export async function addProductToCart(obj, options, { context }) {
         }
     })
 
-    return product
+    return result
 }
