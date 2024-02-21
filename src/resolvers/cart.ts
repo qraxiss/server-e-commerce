@@ -1,7 +1,12 @@
 export const cartType = `
-  type Query  {
-    cart: JSON!
-  }
+    type Cart {
+        product: Product!
+        options: [ComponentProductSelectedOptions!]!
+    }
+
+    type Query  {
+        cart: [Cart!]!
+    }
 `
 
 export async function cart(obj, options, { context }) {
@@ -24,7 +29,6 @@ export async function cart(obj, options, { context }) {
             }
         }
     })
-
 
     return result.cart
 }
