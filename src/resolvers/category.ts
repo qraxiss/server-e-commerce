@@ -46,7 +46,5 @@ export async function getCategoryWithSlug(obj, args, context) {
         }
     })
 
-    console.log(data)
-
     return data
 }
