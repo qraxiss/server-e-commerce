@@ -11,9 +11,9 @@
       "relation": "oneToOne",
       "target": "api::product.product"
     },
-    "option": {
+    "options": {
       "type": "component",
-      "repeatable": false,
+      "repeatable": true,
       "component": "product.selected-options"
     }
   }
