@@ -711,25 +711,6 @@ export interface ApiLogoLogo extends Schema.SingleType {
     }
 }
 
-export interface ApiNewsletterNewsletter extends Schema.CollectionType {
-    collectionName: 'newsletters'
-    info: {
-        singularName: 'newsletter'
-        pluralName: 'newsletters'
-        displayName: 'newsletter'
-    }
-    options: {
-        draftAndPublish: false
-    }
-    attributes: {
-        email: Attribute.Email & Attribute.Unique
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::newsletter.newsletter', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::newsletter.newsletter', 'oneToOne', 'admin::user'> & Attribute.Private
-    }
-}
-
 export interface ApiPeoplePeople extends Schema.SingleType {
     collectionName: 'peoples'
     info: {
@@ -881,7 +862,6 @@ declare module '@strapi/types' {
             'api::contact.contact': ApiContactContact
             'api::footer.footer': ApiFooterFooter
             'api::logo.logo': ApiLogoLogo
-            'api::newsletter.newsletter': ApiNewsletterNewsletter
             'api::people.people': ApiPeoplePeople
             'api::picture.picture': ApiPicturePicture
             'api::product.product': ApiProductProduct

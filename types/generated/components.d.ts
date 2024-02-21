@@ -7,7 +7,7 @@ export interface ProductCart extends Schema.Component {
     }
     attributes: {
         product: Attribute.Relation<'product.cart', 'oneToOne', 'api::product.product'>
-        options: Attribute.Component<'product.selected-options'>
+        option: Attribute.Component<'product.selected-options'>
     }
 }
 
@@ -51,8 +51,7 @@ export interface ProductVariants extends Schema.Component {
     }
     attributes: {
         options: Attribute.Component<'product.option', true>
-        type: Attribute.String & Attribute.Required
-        selectedOptions: Attribute.Component<'product.selected-options'>
+        name: Attribute.String & Attribute.Required
     }
 }
 
