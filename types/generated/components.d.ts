@@ -9,6 +9,7 @@ export interface ProductCart extends Schema.Component {
     attributes: {
         product: Attribute.Relation<'product.cart', 'oneToOne', 'api::product.product'>
         options: Attribute.Component<'product.selected-options', true>
+        count: Attribute.Integer
     }
 }
 

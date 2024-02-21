@@ -1,20 +1,23 @@
 {
-    "collectionName": "components_product_carts",
-    "info": {
-        "displayName": "cart",
-        "description": ""
+  "collectionName": "components_product_carts",
+  "info": {
+    "displayName": "cart",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
     },
-    "options": {},
-    "attributes": {
-        "product": {
-            "type": "relation",
-            "relation": "oneToOne",
-            "target": "api::product.product"
-        },
-        "options": {
-            "type": "component",
-            "repeatable": true,
-            "component": "product.selected-options"
-        }
+    "options": {
+      "type": "component",
+      "repeatable": true,
+      "component": "product.selected-options"
+    },
+    "count": {
+      "type": "integer"
     }
+  }
 }
