@@ -35,7 +35,6 @@ export async function addProductToCart(obj, options, { context }) {
     let slug = options.slug as string
     let user = strapi.requestContext.get().state.user
 
-    console.log(user)
 
     if (!user) {
         throw new Error("API TOKENS CAN'T ACCESS")

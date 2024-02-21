@@ -1,24 +1,19 @@
 {
-    "collectionName": "components_product_variants",
-    "info": {
-        "displayName": "variant",
-        "description": ""
+  "collectionName": "components_product_variants",
+  "info": {
+    "displayName": "variant",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "options": {
+      "type": "component",
+      "repeatable": true,
+      "component": "product.option"
     },
-    "options": {},
-    "attributes": {
-        "options": {
-            "type": "component",
-            "repeatable": true,
-            "component": "product.option"
-        },
-        "type": {
-            "type": "string",
-            "required": true
-        },
-        "selectedOptions": {
-            "type": "component",
-            "repeatable": false,
-            "component": "product.selected-options"
-        }
+    "name": {
+      "type": "string",
+      "required": true
     }
+  }
 }

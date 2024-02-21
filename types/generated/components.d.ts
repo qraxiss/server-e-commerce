@@ -4,6 +4,7 @@ export interface ProductCart extends Schema.Component {
     collectionName: 'components_product_carts'
     info: {
         displayName: 'cart'
+        description: ''
     }
     attributes: {
         product: Attribute.Relation<'product.cart', 'oneToOne', 'api::product.product'>
