@@ -568,11 +568,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
         confirmed: Attribute.Boolean & Attribute.DefaultTo<false>
         blocked: Attribute.Boolean & Attribute.DefaultTo<false>
         role: Attribute.Relation<'plugin::users-permissions.user', 'manyToOne', 'plugin::users-permissions.role'>
-        cart: Attribute.Component<'product.cart', true>
         picture: Attribute.Media
         addresses: Attribute.Component<'user.address', true>
         surname: Attribute.String
         name: Attribute.String
+        cart: Attribute.JSON
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'plugin::users-permissions.user', 'oneToOne', 'admin::user'> & Attribute.Private

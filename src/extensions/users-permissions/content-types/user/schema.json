@@ -65,11 +65,6 @@
             "inversedBy": "users",
             "configurable": false
         },
-        "cart": {
-            "type": "component",
-            "repeatable": true,
-            "component": "product.cart"
-        },
         "picture": {
             "type": "media",
             "multiple": false,
@@ -86,6 +81,9 @@
         },
         "name": {
             "type": "string"
+        },
+        "cart": {
+            "type": "json"
         }
     }
 }

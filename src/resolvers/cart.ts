@@ -1,3 +1,5 @@
+import { productBySlug } from './product'
+
 export const cartType = `
     type Cart {
         product: Product!
@@ -5,7 +7,7 @@ export const cartType = `
     }
 
     type Query  {
-        cart: [Cart!]!
+        cart: JSON
     }
 `
 
@@ -21,28 +23,26 @@ export async function cart(obj, options, { context }) {
             id: user.id
         },
         populate: {
-            cart: {
-                populate: {
-                    options: '*',
-                    product: '*'
-                }
-            }
+            cart: '*'
         }
     })
+
+    // let product = await productBySlug({}, {}, {})
+
+    console.log(result.cart)
 
     return result.cart
 }
 
 export const addProductToCartType = `
     type Mutation {
-        addProductToCart(slug: String!): Product!
+        addProductToCart(slug: String!, options: JSON!): JSON!
     }
 `
 
-import { productBySlug } from './product'
 
-export async function addProductToCart(obj, options, { context }) {
-    let slug = options.slug as string
+export async function addProductToCart(obj, args, { context }) {
+    let { slug, options } = args
     let user = strapi.requestContext.get().state.user
 
     if (!user) {
@@ -50,17 +50,43 @@ export async function addProductToCart(obj, options, { context }) {
     }
     let product = await productBySlug({}, { slug }, {})
 
+    if (!product){
+        throw new Error("PRODUCT DOSENT EXIST")
+    }
+
+    let cart = (
+        await strapi.db.query('plugin::users-permissions.user').findOne({
+            where: {
+                id: user.id
+            },
+            populate: {
+                cart: '*'
+            }
+        })
+    ).cart
+
+    console.log(cart)
+
+    if (!cart){
+        cart = []
+    }
+
+    cart.push({
+        product:slug,
+        options: JSON.parse(options)
+    })
+
+    console.log(cart)
+
     let result = await strapi.db.query('plugin::users-permissions.user').update({
         where: {
             id: user.id
         },
         data: {
-            products: {
-                connect: [product.id]
-            }
+            cart: cart
         },
         populate: {
-            products: '*'
+            cart: '*'
         }
     })
 

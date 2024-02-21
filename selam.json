@@ -1,0 +1,91 @@
+{
+    "id": 1,
+    "username": "qraxiss",
+    "email": "1tusbozuk@gmail.com",
+    "confirmed": true,
+    "blocked": false,
+    "createdAt": "2024-02-11T19:12:24.347Z",
+    "updatedAt": "2024-02-21T09:51:02.533Z",
+    "surname": "Güman",
+    "name": "Mehmet Fatih",
+    "role": {
+        "disconnect": [],
+        "connect": []
+    },
+    "cart": [
+        {
+            "id": 1,
+            "product": {
+                "disconnect": [],
+                "connect": []
+            },
+            "options": [
+                {
+                    "id": 2,
+                    "name": "dsa",
+                    "value": "das",
+                    "__temp_key__": 0
+                },
+                {
+                    "id": 3,
+                    "name": "asd",
+                    "value": "asd",
+                    "__temp_key__": 1
+                },
+                {
+                    "id": 4,
+                    "name": "asd",
+                    "value": "asd",
+                    "__temp_key__": 2
+                }
+            ],
+            "__temp_key__": 0
+        },
+        {
+            "__temp_key__": 1,
+            "product": {
+                "disconnect": [],
+                "connect": [
+                    {
+                        "id": 10,
+                        "position": {
+                            "end": true
+                        }
+                    }
+                ]
+            },
+            "options": [
+                {
+                    "__temp_key__": 0,
+                    "name": "asd",
+                    "value": "asd"
+                }
+            ]
+        }
+    ],
+    "picture": 3,
+    "addresses": [
+        {
+            "id": 2,
+            "country": "Turkey",
+            "city": "Konya",
+            "addressLine1": "bla 23",
+            "zipCode": "42100",
+            "state": "İç Anadolu",
+            "addressLine2": "sadasd asdsa",
+            "addressName": "İş",
+            "__temp_key__": 0
+        },
+        {
+            "id": 3,
+            "country": "Turkey",
+            "city": "Sakarya",
+            "addressLine1": "Şura bura falan",
+            "zipCode": "54100",
+            "state": "Karadeniz",
+            "addressLine2": "filan feşmekan",
+            "addressName": "Ev",
+            "__temp_key__": 1
+        }
+    ]
+}
