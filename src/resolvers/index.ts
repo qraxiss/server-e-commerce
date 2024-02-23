@@ -1,10 +1,12 @@
 import {
-    parentCategories,
-    parentCategoriesType,
+    // parentCategories,
+    // parentCategoriesType,
     createCategoryWithSlug,
     createCategoryWithSlugType,
     categoryBySlug,
-    categoryBySlugType
+    categoryBySlugType,
+    productByCategory,
+    productByCategoryType
 } from './category'
 
 import { createProductWithSlug, createProductWithSlugType, productBySlug, productBySlugType, productsBySlug, productsBySlugType } from './product'
@@ -15,7 +17,7 @@ import { profilePicture, profilePictureType, accountInformation, accountInformat
 
 let typeList = [
     cartType,
-    parentCategoriesType,
+    // parentCategoriesType,
     createProductWithSlugType,
     createCategoryWithSlugType,
     productBySlugType,
@@ -24,7 +26,8 @@ let typeList = [
     profilePictureType,
     accountInformationType,
     productsBySlugType,
-    deleteProductFromCartType
+    deleteProductFromCartType,
+    productByCategoryType
 ]
 
 export function createCustomMutationResolver({ strapi }) {
@@ -32,9 +35,9 @@ export function createCustomMutationResolver({ strapi }) {
         typeDefs: typeList.join('\n'),
         resolversConfig: {
             Query: {
-                parentCategories: {
-                    auth: false
-                },
+                // parentCategories: {
+                //     auth: false
+                // },
                 productBySlug: {
                     auth: false
                 },
@@ -46,17 +49,23 @@ export function createCustomMutationResolver({ strapi }) {
                 },
                 productsBySlug: {
                     auth: false
+                },
+                productByCategory: {
+                    auth: false
                 }
             }
         },
         resolvers: {
             Query: {
+                productByCategory: {
+                    resolve: productByCategory
+                },
                 cart: {
                     resolve: cart
                 },
-                parentCategories: {
-                    resolve: parentCategories
-                },
+                // parentCategories: {
+                //     resolve: parentCategories
+                // },
                 productBySlug: {
                     resolve: productBySlug
                 },

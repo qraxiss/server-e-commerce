@@ -35,7 +35,6 @@ export const productsBySlugType = `
 `
 
 export async function productsBySlug(obj, args, context) {
-
     const data = await strapi.entityService.findMany('api::product.product', {
         filters: {
             slug: {

@@ -636,8 +636,8 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
     attributes: {
         name: Attribute.String
         products: Attribute.Relation<'api::category.category', 'manyToMany', 'api::product.product'>
-        childs: Attribute.Relation<'api::category.category', 'oneToMany', 'api::category.category'>
         slug: Attribute.String & Attribute.Unique
+        parent_categories: Attribute.Relation<'api::category.category', 'manyToMany', 'api::parent-category.parent-category'>
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::category.category', 'oneToOne', 'admin::user'> & Attribute.Private
@@ -708,6 +708,28 @@ export interface ApiLogoLogo extends Schema.SingleType {
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::logo.logo', 'oneToOne', 'admin::user'> & Attribute.Private
         updatedBy: Attribute.Relation<'api::logo.logo', 'oneToOne', 'admin::user'> & Attribute.Private
+    }
+}
+
+export interface ApiParentCategoryParentCategory extends Schema.CollectionType {
+    collectionName: 'parent_categories'
+    info: {
+        singularName: 'parent-category'
+        pluralName: 'parent-categories'
+        displayName: 'parent category'
+        description: ''
+    }
+    options: {
+        draftAndPublish: false
+    }
+    attributes: {
+        name: Attribute.String & Attribute.Required
+        slug: Attribute.String & Attribute.Required & Attribute.Unique
+        childs: Attribute.Relation<'api::parent-category.parent-category', 'manyToMany', 'api::category.category'>
+        createdAt: Attribute.DateTime
+        updatedAt: Attribute.DateTime
+        createdBy: Attribute.Relation<'api::parent-category.parent-category', 'oneToOne', 'admin::user'> & Attribute.Private
+        updatedBy: Attribute.Relation<'api::parent-category.parent-category', 'oneToOne', 'admin::user'> & Attribute.Private
     }
 }
 
@@ -862,6 +884,7 @@ declare module '@strapi/types' {
             'api::contact.contact': ApiContactContact
             'api::footer.footer': ApiFooterFooter
             'api::logo.logo': ApiLogoLogo
+            'api::parent-category.parent-category': ApiParentCategoryParentCategory
             'api::people.people': ApiPeoplePeople
             'api::picture.picture': ApiPicturePicture
             'api::product.product': ApiProductProduct

@@ -1,34 +1,35 @@
 {
-    "kind": "collectionType",
-    "collectionName": "categories",
-    "info": {
-        "singularName": "category",
-        "pluralName": "categories",
-        "displayName": "category",
-        "description": ""
+  "kind": "collectionType",
+  "collectionName": "categories",
+  "info": {
+    "singularName": "category",
+    "pluralName": "categories",
+    "displayName": "category",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
     },
-    "options": {
-        "draftAndPublish": false
+    "products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product",
+      "inversedBy": "categories"
     },
-    "pluginOptions": {},
-    "attributes": {
-        "name": {
-            "type": "string"
-        },
-        "products": {
-            "type": "relation",
-            "relation": "manyToMany",
-            "target": "api::product.product",
-            "inversedBy": "categories"
-        },
-        "childs": {
-            "type": "relation",
-            "relation": "oneToMany",
-            "target": "api::category.category"
-        },
-        "slug": {
-            "type": "string",
-            "unique": true
-        }
+    "slug": {
+      "type": "string",
+      "unique": true
+    },
+    "parent_categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::parent-category.parent-category",
+      "inversedBy": "childs"
     }
+  }
 }

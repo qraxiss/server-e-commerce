@@ -27,7 +27,6 @@ export async function cart() {
         }
     })
 
-
     if (!result.cart) {
         return []
     }
@@ -37,7 +36,6 @@ export async function cart() {
     })
 
     let productObjects: any[] = await productsBySlug({}, { slugs: JSON.stringify(products) }, {})
-
 
     let cart = result.cart.map((productElement: any) => {
         return {
@@ -80,26 +78,23 @@ export async function addProductToCart(obj, args, { context }) {
         cart = []
     }
 
-
     let isNotIn = true
 
     for (let index = 0; index < cart.length; index++) {
-        const element = cart[index];
-        if (element.product === slug){
-            element.count=element.count+1
+        const element = cart[index]
+        if (element.product === slug) {
+            element.count = element.count + 1
             isNotIn = false
             break
         }
     }
 
-    if (isNotIn){
+    if (isNotIn) {
         cart.push({
             product: slug,
             count: 1
         })
     }
-
-
 
     let result = await strapi.db.query('plugin::users-permissions.user').update({
         where: {
@@ -126,17 +121,15 @@ export async function deleteProductFromCart(obj, args, { context }) {
     let user = strapi.requestContext.get().state.user
     let { slug, deleteAll } = args
 
-
     let cartData = (await cart()) as any[]
     let cartDataTemp = []
 
-
     for (let index = 0; index < cartData.length; index++) {
-        const element = cartData[index];
+        const element = cartData[index]
         console.log(element)
 
-        if (element.product.slug === slug){
-            if (deleteAll || element.count === 1){
+        if (element.product.slug === slug) {
+            if (deleteAll || element.count === 1) {
                 continue
             }
 
