@@ -2,6 +2,6 @@
  * parent-category service
  */
 
-import { factories } from '@strapi/strapi';
+import { factories } from '@strapi/strapi'
 
-export default factories.createCoreService('api::parent-category.parent-category');
+export default factories.createCoreService('api::parent-category.parent-category')
