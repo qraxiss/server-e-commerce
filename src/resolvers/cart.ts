@@ -118,13 +118,13 @@ export async function addProductToCart(obj, args, { context }) {
 
 export const deleteProductFromCartType = `
     type Mutation {
-        deleteProductFromCart(slug: String!): JSON!
+        deleteProductFromCart(slug: String!, deleteAll: Boolean=false): JSON!
     }
 `
 
 export async function deleteProductFromCart(obj, args, { context }) {
     let user = strapi.requestContext.get().state.user
-    let { slug } = args
+    let { slug, deleteAll } = args
 
 
     let cartData = (await cart()) as any[]
@@ -136,7 +136,7 @@ export async function deleteProductFromCart(obj, args, { context }) {
         console.log(element)
 
         if (element.product.slug === slug){
-            if (element.count === 1){
+            if (deleteAll || element.count === 1){
                 continue
             }
 
