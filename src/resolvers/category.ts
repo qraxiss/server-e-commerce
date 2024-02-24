@@ -65,8 +65,7 @@ export async function categoryBySlug(obj, args, context) {
         }
     }
 
-
-    return {category: data, variants: classedVariants}
+    return {category: data, variants: Object.keys(classedVariants).map(key=>classedVariants[key])}
 }
 
 export const productByCategoryType = `
