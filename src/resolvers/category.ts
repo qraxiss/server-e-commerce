@@ -16,56 +16,69 @@ export const categoryBySlugType = `
   type CategoryBySlug {
     category: Category!
     variants: JSON!
+    products: [Product!]!
   }
 
   type Query {
-    categoryBySlug (slug: String!): CategoryBySlug!
+    categoryBySlug (slug: String!, start: Int = 0, limit : Int = 12): CategoryBySlug!
   }
 `
 
 export async function categoryBySlug(obj, args, context) {
-    const data = await strapi.db.query('api::category.category').findOne({
+    const category = await strapi.db.query('api::category.category').findOne({
         where: {
             slug: args.slug
-        },
+        }
+    })
+
+    const products = await strapi.entityService.findMany('api::product.product', {
+        start: args.start,
+        limit: args.limit,
         populate: {
-            products: {
+            categories: {
+                fields: ['slug']
+            },
+            variants: {
                 populate: {
-                    fields: ['variants'],
-                    variants: {
-                        populate: {
-                            options: '*'
-                        }
-                    }
+                    options: '*'
+                }
+            }
+        },
+        filters: {
+            categories: {
+                slug: {
+                    $eq: args.slug
                 }
             }
         }
     })
 
     let allVariants = []
-    data.products.forEach((product) => product.variants.forEach((variant) => allVariants.push(variant)))
+    products.forEach((product) => product.variants.forEach((variant) => allVariants.push(variant)))
 
-    let classedVariants: any = {}
+    let variants: any = {}
 
     for (let index = 0; index < allVariants.length; index++) {
         const variant = allVariants[index]
 
-        if (classedVariants[variant.name]) {
+        if (variants[variant.name]) {
             let newVariants = variant.options.filter((option) => {
-                let optionData = (classedVariants[variant.name].options as any[]).find((option2) => {
+                let optionData = (variants[variant.name].options as any[]).find((option2) => {
                     return option2.value == option.value
                 })
                 return !optionData
             })
 
-
-            classedVariants[variant.name].options = (classedVariants[variant.name].options as any[]).concat(newVariants)
+            variants[variant.name].options = (variants[variant.name].options as any[]).concat(newVariants)
         } else {
-            classedVariants[variant.name] = variant
+          variants[variant.name] = variant
         }
     }
 
-    return {category: data, variants: Object.keys(classedVariants).map(key=>classedVariants[key])}
+    variants = Object.keys(variants).map((key) => variants[key])
+
+
+    return { category, products, variants }
 }
 
 export const productByCategoryType = `
