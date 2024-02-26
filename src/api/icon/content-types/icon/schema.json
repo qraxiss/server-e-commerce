@@ -1,0 +1,43 @@
+{
+  "kind": "singleType",
+  "collectionName": "icons",
+  "info": {
+    "singularName": "icon",
+    "pluralName": "icons",
+    "displayName": "Icon",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "cart": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "wishlist": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "account": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "sa": {
+      "type": "string"
+    }
+  }
+}
