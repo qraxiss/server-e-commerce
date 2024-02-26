@@ -705,6 +705,7 @@ export interface ApiIconIcon extends Schema.SingleType {
         cart: Attribute.Media
         wishlist: Attribute.Media
         account: Attribute.Media
+        sa: Attribute.String
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::icon.icon', 'oneToOne', 'admin::user'> & Attribute.Private
