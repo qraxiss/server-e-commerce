@@ -690,6 +690,28 @@ export interface ApiFooterFooter extends Schema.SingleType {
     }
 }
 
+export interface ApiIconIcon extends Schema.SingleType {
+    collectionName: 'icons'
+    info: {
+        singularName: 'icon'
+        pluralName: 'icons'
+        displayName: 'Icon'
+        description: ''
+    }
+    options: {
+        draftAndPublish: false
+    }
+    attributes: {
+        cart: Attribute.Media
+        wishlist: Attribute.Media
+        account: Attribute.Media
+        createdAt: Attribute.DateTime
+        updatedAt: Attribute.DateTime
+        createdBy: Attribute.Relation<'api::icon.icon', 'oneToOne', 'admin::user'> & Attribute.Private
+        updatedBy: Attribute.Relation<'api::icon.icon', 'oneToOne', 'admin::user'> & Attribute.Private
+    }
+}
+
 export interface ApiLogoLogo extends Schema.SingleType {
     collectionName: 'logos'
     info: {
@@ -883,6 +905,7 @@ declare module '@strapi/types' {
             'api::category.category': ApiCategoryCategory
             'api::contact.contact': ApiContactContact
             'api::footer.footer': ApiFooterFooter
+            'api::icon.icon': ApiIconIcon
             'api::logo.logo': ApiLogoLogo
             'api::parent-category.parent-category': ApiParentCategoryParentCategory
             'api::people.people': ApiPeoplePeople
