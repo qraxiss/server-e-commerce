@@ -580,28 +580,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     }
 }
 
-export interface ApiAboutAbout extends Schema.SingleType {
-    collectionName: 'abouts'
-    info: {
-        singularName: 'about'
-        pluralName: 'abouts'
-        displayName: 'about'
-        description: ''
-    }
-    options: {
-        draftAndPublish: false
-    }
-    attributes: {
-        text: Attribute.Text & Attribute.Required
-        rightImg: Attribute.Media
-        footerAbout: Attribute.String
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::about.about', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::about.about', 'oneToOne', 'admin::user'> & Attribute.Private
-    }
-}
-
 export interface ApiCampaignCampaign extends Schema.SingleType {
     collectionName: 'campaigns'
     info: {
@@ -749,6 +727,7 @@ export interface ApiParentCategoryParentCategory extends Schema.CollectionType {
         name: Attribute.String & Attribute.Required
         slug: Attribute.String & Attribute.Required & Attribute.Unique
         childs: Attribute.Relation<'api::parent-category.parent-category', 'manyToMany', 'api::category.category'>
+        icon: Attribute.Media
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::parent-category.parent-category', 'oneToOne', 'admin::user'> & Attribute.Private
@@ -901,7 +880,6 @@ declare module '@strapi/types' {
             'plugin::users-permissions.permission': PluginUsersPermissionsPermission
             'plugin::users-permissions.role': PluginUsersPermissionsRole
             'plugin::users-permissions.user': PluginUsersPermissionsUser
-            'api::about.about': ApiAboutAbout
             'api::campaign.campaign': ApiCampaignCampaign
             'api::category.category': ApiCategoryCategory
             'api::contact.contact': ApiContactContact

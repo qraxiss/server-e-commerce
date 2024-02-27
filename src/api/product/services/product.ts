@@ -14,7 +14,6 @@ export default factories.createCoreService('api::product.product', ({ strapi }) 
             }
         })
 
-
         if (product) {
             params.slug = `${params.slug}-${randomstring.generate({
                 length: 3,

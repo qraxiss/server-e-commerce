@@ -71,12 +71,11 @@ export async function categoryBySlug(obj, args, context) {
 
             variants[variant.name].options = (variants[variant.name].options as any[]).concat(newVariants)
         } else {
-          variants[variant.name] = variant
+            variants[variant.name] = variant
         }
     }
 
     variants = Object.keys(variants).map((key) => variants[key])
-
 
     return { category, products, variants }
 }
