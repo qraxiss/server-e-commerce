@@ -1,37 +1,54 @@
 {
-    "kind": "singleType",
-    "collectionName": "icons",
-    "info": {
-        "singularName": "icon",
-        "pluralName": "icons",
-        "displayName": "Icon",
-        "description": ""
+  "kind": "singleType",
+  "collectionName": "icons",
+  "info": {
+    "singularName": "icon",
+    "pluralName": "icons",
+    "displayName": "Icon",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "cart": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     },
-    "options": {
-        "draftAndPublish": false
+    "wishlist": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     },
-    "pluginOptions": {},
-    "attributes": {
-        "cart": {
-            "type": "media",
-            "multiple": false,
-            "required": false,
-            "allowedTypes": ["images"]
-        },
-        "wishlist": {
-            "type": "media",
-            "multiple": false,
-            "required": false,
-            "allowedTypes": ["images"]
-        },
-        "account": {
-            "type": "media",
-            "multiple": false,
-            "required": false,
-            "allowedTypes": ["images"]
-        },
-        "sa": {
-            "type": "string"
-        }
+    "account": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "collections": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "delivery": {
+      "allowedTypes": [
+        "videos"
+      ],
+      "type": "media",
+      "multiple": false
     }
+  }
 }
