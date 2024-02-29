@@ -21,6 +21,7 @@ export interface PagesPage extends Schema.Component {
     attributes: {
         url: Attribute.String & Attribute.Required
         title: Attribute.String & Attribute.Required
+        icon: Attribute.Media
     }
 }
 
