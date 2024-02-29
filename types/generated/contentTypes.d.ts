@@ -713,6 +713,28 @@ export interface ApiLogoLogo extends Schema.SingleType {
     }
 }
 
+export interface ApiPagePage extends Schema.SingleType {
+    collectionName: 'pages'
+    info: {
+        singularName: 'page'
+        pluralName: 'pages'
+        displayName: 'page'
+        description: ''
+    }
+    options: {
+        draftAndPublish: true
+    }
+    attributes: {
+        header: Attribute.Component<'pages.complete-page', true>
+        collections: Attribute.Component<'pages.complete-page', true>
+        createdAt: Attribute.DateTime
+        updatedAt: Attribute.DateTime
+        publishedAt: Attribute.DateTime
+        createdBy: Attribute.Relation<'api::page.page', 'oneToOne', 'admin::user'> & Attribute.Private
+        updatedBy: Attribute.Relation<'api::page.page', 'oneToOne', 'admin::user'> & Attribute.Private
+    }
+}
+
 export interface ApiParentCategoryParentCategory extends Schema.CollectionType {
     collectionName: 'parent_categories'
     info: {
@@ -887,6 +909,7 @@ declare module '@strapi/types' {
             'api::footer.footer': ApiFooterFooter
             'api::icon.icon': ApiIconIcon
             'api::logo.logo': ApiLogoLogo
+            'api::page.page': ApiPagePage
             'api::parent-category.parent-category': ApiParentCategoryParentCategory
             'api::people.people': ApiPeoplePeople
             'api::picture.picture': ApiPicturePicture

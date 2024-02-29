@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_pages_pages",
+  "info": {
+    "displayName": "singlePage",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

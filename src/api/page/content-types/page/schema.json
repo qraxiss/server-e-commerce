@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "pages",
+  "info": {
+    "singularName": "page",
+    "pluralName": "pages",
+    "displayName": "page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "header": {
+      "type": "component",
+      "repeatable": true,
+      "component": "pages.complete-page"
+    },
+    "collections": {
+      "type": "component",
+      "repeatable": true,
+      "component": "pages.complete-page"
+    }
+  }
+}

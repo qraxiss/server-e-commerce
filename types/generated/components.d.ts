@@ -1,5 +1,29 @@
 import type { Schema, Attribute } from '@strapi/strapi'
 
+export interface PagesCompletePage extends Schema.Component {
+    collectionName: 'components_pages_complete_pages'
+    info: {
+        displayName: 'CompletePage'
+        description: ''
+    }
+    attributes: {
+        page: Attribute.Component<'pages.page'>
+        subPages: Attribute.Component<'pages.page', true>
+    }
+}
+
+export interface PagesPage extends Schema.Component {
+    collectionName: 'components_pages_pages'
+    info: {
+        displayName: 'singlePage'
+        description: ''
+    }
+    attributes: {
+        url: Attribute.String & Attribute.Required
+        title: Attribute.String & Attribute.Required
+    }
+}
+
 export interface ProductCart extends Schema.Component {
     collectionName: 'components_product_carts'
     info: {
@@ -145,6 +169,8 @@ export interface UserCart extends Schema.Component {
 declare module '@strapi/types' {
     export module Shared {
         export interface Components {
+            'pages.complete-page': PagesCompletePage
+            'pages.page': PagesPage
             'product.cart': ProductCart
             'product.option': ProductOption
             'product.selected-options': ProductSelectedOptions
