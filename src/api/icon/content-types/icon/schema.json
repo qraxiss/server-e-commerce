@@ -1,56 +1,46 @@
 {
-  "kind": "singleType",
-  "collectionName": "icons",
-  "info": {
-    "singularName": "icon",
-    "pluralName": "icons",
-    "displayName": "Icon",
-    "description": ""
-  },
-  "options": {
-    "draftAndPublish": false
-  },
-  "pluginOptions": {},
-  "attributes": {
-    "cart": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+    "kind": "singleType",
+    "collectionName": "icons",
+    "info": {
+        "singularName": "icon",
+        "pluralName": "icons",
+        "displayName": "Icon",
+        "description": ""
     },
-    "wishlist": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+    "options": {
+        "draftAndPublish": false
     },
-    "account": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "collections": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "delivery": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+    "pluginOptions": {},
+    "attributes": {
+        "cart": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": ["images"]
+        },
+        "wishlist": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": ["images"]
+        },
+        "account": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": ["images"]
+        },
+        "collections": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": ["images"]
+        },
+        "delivery": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": ["images"]
+        }
     }
-  }
 }

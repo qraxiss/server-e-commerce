@@ -720,13 +720,15 @@ export interface ApiOptionOption extends Schema.CollectionType {
         singularName: 'option'
         pluralName: 'options'
         displayName: 'option'
+        description: ''
     }
     options: {
         draftAndPublish: false
     }
     attributes: {
         value: Attribute.String
-        variant: Attribute.Relation<'api::option.option', 'oneToOne', 'api::variant.variant'>
+        variant: Attribute.Relation<'api::option.option', 'manyToOne', 'api::variant.variant'>
+        products: Attribute.Relation<'api::option.option', 'manyToMany', 'api::product.product'>
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::option.option', 'oneToOne', 'admin::user'> & Attribute.Private
@@ -871,6 +873,7 @@ export interface ApiProductProduct extends Schema.CollectionType {
                     localized: true
                 }
             }>
+        options: Attribute.Relation<'api::product.product', 'manyToMany', 'api::option.option'>
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::product.product', 'oneToOne', 'admin::user'> & Attribute.Private
@@ -915,7 +918,7 @@ export interface ApiVariantVariant extends Schema.CollectionType {
         name: Attribute.String & Attribute.Required
         key: Attribute.String & Attribute.Required & Attribute.Unique
         categories: Attribute.Relation<'api::variant.variant', 'manyToMany', 'api::category.category'>
-        option: Attribute.Relation<'api::variant.variant', 'oneToOne', 'api::option.option'>
+        options: Attribute.Relation<'api::variant.variant', 'oneToMany', 'api::option.option'>
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::variant.variant', 'oneToOne', 'admin::user'> & Attribute.Private

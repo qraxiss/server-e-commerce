@@ -9,7 +9,16 @@ import {
     productByCategoryType
 } from './category'
 
-import { createProductWithSlug, createProductWithSlugType, productBySlug, productBySlugType, productsBySlug, productsBySlugType } from './product'
+import {
+    createProductWithSlug,
+    createProductWithSlugType,
+    productBySlug,
+    productBySlugType,
+    productsBySlug,
+    productsBySlugType,
+    filterProducts,
+    filterProductsType
+} from './product'
 
 import { cart, cartType, addProductToCart, addProductToCartType, deleteProductFromCart, deleteProductFromCartType } from './cart'
 
@@ -18,6 +27,7 @@ import { profilePicture, profilePictureType, accountInformation, accountInformat
 let typeList = [
     cartType,
     // parentCategoriesType,
+    filterProductsType,
     createProductWithSlugType,
     createCategoryWithSlugType,
     productBySlugType,
@@ -38,6 +48,9 @@ export function createCustomMutationResolver({ strapi }) {
                 // parentCategories: {
                 //     auth: false
                 // },
+                filterProducts: {
+                    auth: false
+                },
                 productBySlug: {
                     auth: false
                 },
@@ -63,9 +76,9 @@ export function createCustomMutationResolver({ strapi }) {
                 cart: {
                     resolve: cart
                 },
-                // parentCategories: {
-                //     resolve: parentCategories
-                // },
+                filterProducts: {
+                    resolve: filterProducts
+                },
                 productBySlug: {
                     resolve: productBySlug
                 },
