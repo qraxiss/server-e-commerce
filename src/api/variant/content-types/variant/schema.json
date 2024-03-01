@@ -4,7 +4,8 @@
   "info": {
     "singularName": "variant",
     "pluralName": "variants",
-    "displayName": "variant"
+    "displayName": "variant",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -25,6 +26,11 @@
       "relation": "manyToMany",
       "target": "api::category.category",
       "inversedBy": "variants"
+    },
+    "options": {
+      "type": "component",
+      "repeatable": true,
+      "component": "product.option"
     }
   }
 }

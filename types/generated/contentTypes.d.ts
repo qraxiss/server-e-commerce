@@ -886,17 +886,18 @@ export interface ApiVariantVariant extends Schema.CollectionType {
         singularName: 'variant'
         pluralName: 'variants'
         displayName: 'variant'
+        description: ''
     }
     options: {
-        draftAndPublish: true
+        draftAndPublish: false
     }
     attributes: {
         name: Attribute.String & Attribute.Required
         key: Attribute.String & Attribute.Required & Attribute.Unique
         categories: Attribute.Relation<'api::variant.variant', 'manyToMany', 'api::category.category'>
+        options: Attribute.Component<'product.option', true>
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
-        publishedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::variant.variant', 'oneToOne', 'admin::user'> & Attribute.Private
         updatedBy: Attribute.Relation<'api::variant.variant', 'oneToOne', 'admin::user'> & Attribute.Private
     }
