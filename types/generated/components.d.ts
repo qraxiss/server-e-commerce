@@ -70,18 +70,6 @@ export interface ProductTag extends Schema.Component {
     }
 }
 
-export interface ProductVariants extends Schema.Component {
-    collectionName: 'components_product_variants'
-    info: {
-        displayName: 'variant'
-        description: ''
-    }
-    attributes: {
-        options: Attribute.Component<'product.option', true>
-        name: Attribute.String & Attribute.Required
-    }
-}
-
 export interface StaticCampaign extends Schema.Component {
     collectionName: 'components_static_campaigns'
     info: {
@@ -176,7 +164,6 @@ declare module '@strapi/types' {
             'product.option': ProductOption
             'product.selected-options': ProductSelectedOptions
             'product.tag': ProductTag
-            'product.variants': ProductVariants
             'static.campaign': StaticCampaign
             'static.fact': StaticFact
             'static.footer-item': StaticFooterItem

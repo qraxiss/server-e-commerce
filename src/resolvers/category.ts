@@ -15,7 +15,7 @@ export async function createCategoryWithSlug(obj, options, { context }) {
 export const categoryBySlugType = `
   type CategoryBySlug {
     category: Category!
-    variants: JSON!
+    variants: JSON
     products: [Product!]!
   }
 
@@ -53,31 +53,31 @@ export async function categoryBySlug(obj, args, context) {
         }
     })
 
-    let allVariants = []
-    products.forEach((product) => product.variants.forEach((variant) => allVariants.push(variant)))
+    // let allVariants = []
+    // products.forEach((product) => product.variants.forEach((variant) => allVariants.push(variant)))
 
-    let variants: any = {}
+    // let variants: any = {}
 
-    for (let index = 0; index < allVariants.length; index++) {
-        const variant = allVariants[index]
+    // for (let index = 0; index < allVariants.length; index++) {
+    //     const variant = allVariants[index]
 
-        if (variants[variant.name]) {
-            let newVariants = variant.options.filter((option) => {
-                let optionData = (variants[variant.name].options as any[]).find((option2) => {
-                    return option2.value == option.value
-                })
-                return !optionData
-            })
+    //     if (variants[variant.name]) {
+    //         let newVariants = variant.options.filter((option) => {
+    //             let optionData = (variants[variant.name].options as any[]).find((option2) => {
+    //                 return option2.value == option.value
+    //             })
+    //             return !optionData
+    //         })
 
-            variants[variant.name].options = (variants[variant.name].options as any[]).concat(newVariants)
-        } else {
-            variants[variant.name] = variant
-        }
-    }
+    //         variants[variant.name].options = (variants[variant.name].options as any[]).concat(newVariants)
+    //     } else {
+    //         variants[variant.name] = variant
+    //     }
+    // }
 
-    variants = Object.keys(variants).map((key) => variants[key])
+    // variants = Object.keys(variants).map((key) => variants[key])
 
-    return { category, products, variants }
+    return { category, products }
 }
 
 export const productByCategoryType = `

@@ -843,12 +843,6 @@ export interface ApiProductProduct extends Schema.CollectionType {
                     localized: true
                 }
             }>
-        variants: Attribute.Component<'product.variants', true> &
-            Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: true
-                }
-            }>
         categories: Attribute.Relation<'api::product.product', 'manyToMany', 'api::category.category'>
         slug: Attribute.String &
             Attribute.Unique &
