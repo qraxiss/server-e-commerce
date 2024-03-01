@@ -38,17 +38,6 @@ export interface ProductCart extends Schema.Component {
     }
 }
 
-export interface ProductOption extends Schema.Component {
-    collectionName: 'components_product_options'
-    info: {
-        displayName: 'option'
-        description: ''
-    }
-    attributes: {
-        value: Attribute.String & Attribute.Required
-    }
-}
-
 export interface ProductSelectedOptions extends Schema.Component {
     collectionName: 'components_product_selected_options'
     info: {
@@ -67,6 +56,18 @@ export interface ProductTag extends Schema.Component {
     }
     attributes: {
         name: Attribute.String & Attribute.Required
+    }
+}
+
+export interface ProductVariant extends Schema.Component {
+    collectionName: 'components_product_variants'
+    info: {
+        displayName: 'variant'
+        description: ''
+    }
+    attributes: {
+        variant: Attribute.Relation<'product.variant', 'oneToOne', 'api::variant.variant'>
+        options: Attribute.Relation<'product.variant', 'oneToMany', 'api::option.option'>
     }
 }
 
@@ -161,9 +162,9 @@ declare module '@strapi/types' {
             'pages.complete-page': PagesCompletePage
             'pages.page': PagesPage
             'product.cart': ProductCart
-            'product.option': ProductOption
             'product.selected-options': ProductSelectedOptions
             'product.tag': ProductTag
+            'product.variant': ProductVariant
             'static.campaign': StaticCampaign
             'static.fact': StaticFact
             'static.footer-item': StaticFooterItem

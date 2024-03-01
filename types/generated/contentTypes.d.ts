@@ -714,6 +714,26 @@ export interface ApiLogoLogo extends Schema.SingleType {
     }
 }
 
+export interface ApiOptionOption extends Schema.CollectionType {
+    collectionName: 'options'
+    info: {
+        singularName: 'option'
+        pluralName: 'options'
+        displayName: 'option'
+    }
+    options: {
+        draftAndPublish: false
+    }
+    attributes: {
+        value: Attribute.String
+        variant: Attribute.Relation<'api::option.option', 'oneToOne', 'api::variant.variant'>
+        createdAt: Attribute.DateTime
+        updatedAt: Attribute.DateTime
+        createdBy: Attribute.Relation<'api::option.option', 'oneToOne', 'admin::user'> & Attribute.Private
+        updatedBy: Attribute.Relation<'api::option.option', 'oneToOne', 'admin::user'> & Attribute.Private
+    }
+}
+
 export interface ApiPagePage extends Schema.SingleType {
     collectionName: 'pages'
     info: {
@@ -895,7 +915,7 @@ export interface ApiVariantVariant extends Schema.CollectionType {
         name: Attribute.String & Attribute.Required
         key: Attribute.String & Attribute.Required & Attribute.Unique
         categories: Attribute.Relation<'api::variant.variant', 'manyToMany', 'api::category.category'>
-        options: Attribute.Component<'product.option', true>
+        option: Attribute.Relation<'api::variant.variant', 'oneToOne', 'api::option.option'>
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::variant.variant', 'oneToOne', 'admin::user'> & Attribute.Private
@@ -927,6 +947,7 @@ declare module '@strapi/types' {
             'api::footer.footer': ApiFooterFooter
             'api::icon.icon': ApiIconIcon
             'api::logo.logo': ApiLogoLogo
+            'api::option.option': ApiOptionOption
             'api::page.page': ApiPagePage
             'api::parent-category.parent-category': ApiParentCategoryParentCategory
             'api::people.people': ApiPeoplePeople

@@ -27,10 +27,11 @@
       "target": "api::category.category",
       "inversedBy": "variants"
     },
-    "options": {
-      "type": "component",
-      "repeatable": true,
-      "component": "product.option"
+    "option": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::option.option",
+      "mappedBy": "variant"
     }
   }
 }
