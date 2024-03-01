@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "variants",
+  "info": {
+    "singularName": "variant",
+    "pluralName": "variants",
+    "displayName": "variant"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "key": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "inversedBy": "variants"
+    }
+  }
+}

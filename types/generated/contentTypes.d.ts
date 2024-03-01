@@ -616,6 +616,7 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
         products: Attribute.Relation<'api::category.category', 'manyToMany', 'api::product.product'>
         slug: Attribute.String & Attribute.Unique
         parent_categories: Attribute.Relation<'api::category.category', 'manyToMany', 'api::parent-category.parent-category'>
+        variants: Attribute.Relation<'api::category.category', 'manyToMany', 'api::variant.variant'>
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::category.category', 'oneToOne', 'admin::user'> & Attribute.Private
@@ -885,6 +886,28 @@ export interface ApiSocialSocial extends Schema.SingleType {
     }
 }
 
+export interface ApiVariantVariant extends Schema.CollectionType {
+    collectionName: 'variants'
+    info: {
+        singularName: 'variant'
+        pluralName: 'variants'
+        displayName: 'variant'
+    }
+    options: {
+        draftAndPublish: true
+    }
+    attributes: {
+        name: Attribute.String & Attribute.Required
+        key: Attribute.String & Attribute.Required & Attribute.Unique
+        categories: Attribute.Relation<'api::variant.variant', 'manyToMany', 'api::category.category'>
+        createdAt: Attribute.DateTime
+        updatedAt: Attribute.DateTime
+        publishedAt: Attribute.DateTime
+        createdBy: Attribute.Relation<'api::variant.variant', 'oneToOne', 'admin::user'> & Attribute.Private
+        updatedBy: Attribute.Relation<'api::variant.variant', 'oneToOne', 'admin::user'> & Attribute.Private
+    }
+}
+
 declare module '@strapi/types' {
     export module Shared {
         export interface ContentTypes {
@@ -915,6 +938,7 @@ declare module '@strapi/types' {
             'api::picture.picture': ApiPicturePicture
             'api::product.product': ApiProductProduct
             'api::social.social': ApiSocialSocial
+            'api::variant.variant': ApiVariantVariant
         }
     }
 }
