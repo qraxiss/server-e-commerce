@@ -15,8 +15,8 @@ export async function createCategoryWithSlug(obj, options, { context }) {
 export const categoryBySlugType = `
   type CategoryBySlug {
     category: Category!
-    variants: JSON
-    products: [Product!]!
+    variants: [Variant]
+    products: [Product]
   }
 
   type Query {
@@ -28,6 +28,17 @@ export async function categoryBySlug(obj, args, context) {
     const category = await strapi.db.query('api::category.category').findOne({
         where: {
             slug: args.slug
+        },
+
+        populate: {
+            variants: {
+                fields: ['key', 'name', 'options'],
+                populate: {
+                    options: {
+                        populate: ['value']
+                    }
+                }
+            }
         }
     })
 
@@ -53,31 +64,7 @@ export async function categoryBySlug(obj, args, context) {
         }
     })
 
-    // let allVariants = []
-    // products.forEach((product) => product.variants.forEach((variant) => allVariants.push(variant)))
-
-    // let variants: any = {}
-
-    // for (let index = 0; index < allVariants.length; index++) {
-    //     const variant = allVariants[index]
-
-    //     if (variants[variant.name]) {
-    //         let newVariants = variant.options.filter((option) => {
-    //             let optionData = (variants[variant.name].options as any[]).find((option2) => {
-    //                 return option2.value == option.value
-    //             })
-    //             return !optionData
-    //         })
-
-    //         variants[variant.name].options = (variants[variant.name].options as any[]).concat(newVariants)
-    //     } else {
-    //         variants[variant.name] = variant
-    //     }
-    // }
-
-    // variants = Object.keys(variants).map((key) => variants[key])
-
-    return { category, products }
+    return { category, products, variants: category.variants }
 }
 
 export const productByCategoryType = `
