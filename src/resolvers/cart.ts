@@ -1,9 +1,33 @@
 import { productBySlug, productsBySlug } from './product'
 
+function areObjectsEqual(obj1, obj2) {
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+
+    if (keys1.length !== keys2.length) {
+        return false;
+    }
+
+    for (const key of keys1) {
+        if (obj1[key] !== obj2[key]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+type product = {
+    slug: string,
+    count: number,
+    options: any
+}
+
 export const cartType = `
     type Cart {
         product: Product!
         count: Int!
+        options: JSON!
     }
 
     type Query  {
@@ -27,20 +51,20 @@ export async function cart() {
         }
     })
 
-    if (!result.cart) {
+    if (!result.cart && result.cart.length === 0) {
         return []
     }
 
     let products = result?.cart?.map((product: any) => {
-        return product.product
+        return product.slug
     })
-
-    let productObjects: any[] = await productsBySlug({}, { slugs: JSON.stringify(products) }, {})
+    let productObjects: any[] = await productsBySlug({}, { slugs:products}, {})
 
     let cart = result.cart.map((productElement: any) => {
         return {
-            product: productObjects.find((element) => productElement.product === element.slug),
-            count: productElement.count
+            product: productObjects.find((element) => productElement.slug === element.slug),
+            count: productElement.count,
+            options: productElement.options
         }
     })
 
@@ -48,8 +72,13 @@ export async function cart() {
 }
 
 export const addProductToCartType = `
+    type OptionProduct {
+        option: String!
+        value: String!
+    }
+
     type Mutation {
-        addProductToCart(slug: String!): JSON!
+        addProductToCart(slug: String!, options: JSON!, count: Int!=1): JSON!
     }
 `
 
@@ -70,30 +99,28 @@ export async function addProductToCart(obj, args, { context }) {
             },
             populate: {
                 cart: '*'
-            }
+            },
         })
-    ).cart as any[]
+    ).cart as product[]
 
-    if (!cart) {
+    if (!cart){
         cart = []
     }
 
-    let isNotIn = true
 
+    let find: boolean = false
     for (let index = 0; index < cart.length; index++) {
-        const element = cart[index]
-        if (element.product === slug) {
-            element.count = element.count + 1
-            isNotIn = false
+        const product = cart[index];
+        
+        if (product.slug === args.slug && areObjectsEqual(product.options, args.options)){
+            find = true
+            cart[index].count = cart[index].count + args.count
             break
         }
+        
     }
-
-    if (isNotIn) {
-        cart.push({
-            product: slug,
-            count: 1
-        })
+    if (!find){
+        cart.push(args)
     }
 
     let result = await strapi.db.query('plugin::users-permissions.user').update({
@@ -101,60 +128,85 @@ export async function addProductToCart(obj, args, { context }) {
             id: user.id
         },
         data: {
-            cart: cart
+            cart
         },
         populate: {
-            cart: '*'
+            cart : "*"
         }
     })
 
-    return result.cart
+    return !areObjectsEqual(result.cart, cart)
 }
 
 export const deleteProductFromCartType = `
     type Mutation {
-        deleteProductFromCart(slug: String!, deleteAll: Boolean=false): JSON!
+        deleteProductFromCart(slug: String!, deleteAll: Boolean=false, options:JSON!): JSON!
     }
 `
 
-export async function deleteProductFromCart(obj, args, { context }) {
+export async function deleteProductFromCart(obj: any, args: {
+    deleteAll: boolean,
+    slug: string,
+    options: any,
+}, { context }: any) {
     let user = strapi.requestContext.get().state.user
-    let { slug, deleteAll } = args
 
-    let cartData = (await cart()) as any[]
-    let cartDataTemp = []
+    let {deleteAll, slug, options} = args
 
-    for (let index = 0; index < cartData.length; index++) {
-        const element = cartData[index]
-        console.log(element)
+    let cart = (
+        await strapi.db.query('plugin::users-permissions.user').findOne({
+            where: {
+                id: user.id
+            },
+            populate: {
+                cart: '*'
+            },
+        })
+    ).cart as product[]
 
-        if (element.product.slug === slug) {
-            if (deleteAll || element.count === 1) {
-                continue
+    let oldCart = structuredClone(cart)
+
+    if (!cart || cart.length === 0){
+        return false
+    }
+
+    if (deleteAll){
+        cart = cart.filter(product=>{
+            return !(product.slug === slug && areObjectsEqual(product.options, options))
+        })
+    } else {
+
+        for (let index = 0; index < cart.length; index++) {
+            const product = cart[index];
+            
+            if (product.slug === slug && areObjectsEqual(product.options, options)){
+                console.log(cart[index])
+                cart[index].count = cart[index].count - 1
             }
-
-            cartDataTemp.push({
-                ...element,
-                count: element.count - 1
-            })
-        } else {
-            cartDataTemp.push(element)
         }
     }
 
-    let result = await strapi.db.query('plugin::users-permissions.user').update({
-        where: {
-            id: user.id
-        },
-        data: {
-            cart: cartDataTemp.map((cart) => {
-                return { product: cart.product.slug, count: cart.count }
-            })
-        },
-        populate: {
-            cart: '*'
-        }
-    })
 
-    return result.cart
+
+    if (!areObjectsEqual(oldCart, cart)){
+        
+        let result = await strapi.db.query('plugin::users-permissions.user').update({
+            where: {
+                id: user.id
+            },
+            data: {
+                cart
+            },
+            populate: {
+                cart : "*"
+            }
+        })
+
+        return !areObjectsEqual(result.cart, cart) 
+    
+    } else {
+        return false
+    }
+
+    
 }
