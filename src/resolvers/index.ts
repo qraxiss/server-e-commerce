@@ -20,13 +20,17 @@ import {
     filterProductsType
 } from './product'
 
+import { nonce, nonceType, registerWithWallet, registerWithWalletType, loginWithWallet, loginWithWalletType } from './wallet'
+
 import { cart, cartType, addProductToCart, addProductToCartType, deleteProductFromCart, deleteProductFromCartType } from './cart'
 
 import { profilePicture, profilePictureType, accountInformation, accountInformationType } from './user'
 
 let typeList = [
     cartType,
-    // parentCategoriesType,
+    nonceType,
+    registerWithWalletType,
+    loginWithWalletType,
     filterProductsType,
     createProductWithSlugType,
     createCategoryWithSlugType,
@@ -65,6 +69,17 @@ export function createCustomMutationResolver({ strapi }) {
                 },
                 productByCategory: {
                     auth: false
+                },
+                nonce: {
+                    auth: false
+                }
+            },
+            Mutation: {
+                registerWithWallet: {
+                    auth: false
+                },
+                loginWithWallet: {
+                    auth: false
                 }
             }
         },
@@ -93,9 +108,18 @@ export function createCustomMutationResolver({ strapi }) {
                 },
                 productsBySlug: {
                     resolve: productsBySlug
-                }
+                },
+                nonce: {
+                    resolve: nonce
+                },
             },
             Mutation: {
+                registerWithWallet: {
+                    resolve: registerWithWallet
+                },
+                loginWithWallet: {
+                    resolve: loginWithWallet
+                },
                 deleteProductFromCart: {
                     resolve: deleteProductFromCart
                 },
