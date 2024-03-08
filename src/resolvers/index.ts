@@ -1,6 +1,4 @@
 import {
-    // parentCategories,
-    // parentCategoriesType,
     createCategoryWithSlug,
     createCategoryWithSlugType,
     categoryBySlug,
@@ -49,9 +47,6 @@ export function createCustomMutationResolver({ strapi }) {
         typeDefs: typeList.join('\n'),
         resolversConfig: {
             Query: {
-                // parentCategories: {
-                //     auth: false
-                // },
                 filterProducts: {
                     auth: false
                 },
