@@ -25,6 +25,12 @@ export async function loginWithWallet(obj, {walletAddress}, { context }) {
         }
     })
 
+    if (!user){
+        return {
+            jwt: null,
+        }
+    }
+
     return {
         jwt: getService('jwt').issue({id: user.id}),
         user
