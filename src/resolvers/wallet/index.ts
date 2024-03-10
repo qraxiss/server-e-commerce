@@ -18,21 +18,21 @@ export const loginWithWalletType = `
     }
 `
 
-export async function loginWithWallet(obj, {walletAddress}, { context }) {
+export async function loginWithWallet(obj, { walletAddress }, { context }) {
     let user = await strapi.db.query('plugin::users-permissions.user').findOne({
         where: {
             walletAddress
         }
     })
 
-    if (!user){
+    if (!user) {
         return {
-            jwt: null,
+            jwt: null
         }
     }
 
     return {
-        jwt: getService('jwt').issue({id: user.id}),
+        jwt: getService('jwt').issue({ id: user.id }),
         user
     }
 }

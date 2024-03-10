@@ -1,25 +1,25 @@
 import { productBySlug, productsBySlug } from './product'
 
 function areObjectsEqual(obj1, obj2) {
-    const keys1 = Object.keys(obj1);
-    const keys2 = Object.keys(obj2);
+    const keys1 = Object.keys(obj1)
+    const keys2 = Object.keys(obj2)
 
     if (keys1.length !== keys2.length) {
-        return false;
+        return false
     }
 
     for (const key of keys1) {
         if (obj1[key] !== obj2[key]) {
-            return false;
+            return false
         }
     }
 
-    return true;
+    return true
 }
 
 type product = {
-    slug: string,
-    count: number,
+    slug: string
+    count: number
     options: any
 }
 
@@ -58,7 +58,7 @@ export async function cart() {
     let products = result?.cart?.map((product: any) => {
         return product.slug
     })
-    let productObjects: any[] = await productsBySlug({}, { slugs:products}, {})
+    let productObjects: any[] = await productsBySlug({}, { slugs: products }, {})
 
     let cart = result.cart.map((productElement: any) => {
         return {
@@ -99,27 +99,25 @@ export async function addProductToCart(obj, args, { context }) {
             },
             populate: {
                 cart: '*'
-            },
+            }
         })
     ).cart as product[]
 
-    if (!cart){
+    if (!cart) {
         cart = []
     }
 
-
     let find: boolean = false
     for (let index = 0; index < cart.length; index++) {
-        const product = cart[index];
-        
-        if (product.slug === args.slug && areObjectsEqual(product.options, args.options)){
+        const product = cart[index]
+
+        if (product.slug === args.slug && areObjectsEqual(product.options, args.options)) {
             find = true
             cart[index].count = cart[index].count + args.count
             break
         }
-        
     }
-    if (!find){
+    if (!find) {
         cart.push(args)
     }
 
@@ -131,7 +129,7 @@ export async function addProductToCart(obj, args, { context }) {
             cart
         },
         populate: {
-            cart : "*"
+            cart: '*'
         }
     })
 
@@ -144,14 +142,18 @@ export const deleteProductFromCartType = `
     }
 `
 
-export async function deleteProductFromCart(obj: any, args: {
-    deleteAll: boolean,
-    slug: string,
-    options: any,
-}, { context }: any) {
+export async function deleteProductFromCart(
+    obj: any,
+    args: {
+        deleteAll: boolean
+        slug: string
+        options: any
+    },
+    { context }: any
+) {
     let user = strapi.requestContext.get().state.user
 
-    let {deleteAll, slug, options} = args
+    let { deleteAll, slug, options } = args
 
     let cart = (
         await strapi.db.query('plugin::users-permissions.user').findOne({
@@ -160,36 +162,32 @@ export async function deleteProductFromCart(obj: any, args: {
             },
             populate: {
                 cart: '*'
-            },
+            }
         })
     ).cart as product[]
 
     let oldCart = structuredClone(cart)
 
-    if (!cart || cart.length === 0){
+    if (!cart || cart.length === 0) {
         return false
     }
 
-    if (deleteAll){
-        cart = cart.filter(product=>{
+    if (deleteAll) {
+        cart = cart.filter((product) => {
             return !(product.slug === slug && areObjectsEqual(product.options, options))
         })
     } else {
-
         for (let index = 0; index < cart.length; index++) {
-            const product = cart[index];
-            
-            if (product.slug === slug && areObjectsEqual(product.options, options)){
+            const product = cart[index]
+
+            if (product.slug === slug && areObjectsEqual(product.options, options)) {
                 console.log(cart[index])
                 cart[index].count = cart[index].count - 1
             }
         }
     }
 
-
-
-    if (!areObjectsEqual(oldCart, cart)){
-        
+    if (!areObjectsEqual(oldCart, cart)) {
         let result = await strapi.db.query('plugin::users-permissions.user').update({
             where: {
                 id: user.id
@@ -198,15 +196,12 @@ export async function deleteProductFromCart(obj: any, args: {
                 cart
             },
             populate: {
-                cart : "*"
+                cart: '*'
             }
         })
 
-        return !areObjectsEqual(result.cart, cart) 
-    
+        return !areObjectsEqual(result.cart, cart)
     } else {
         return false
     }
-
-    
 }

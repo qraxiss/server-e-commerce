@@ -1,4 +1,4 @@
-import { syncPrintful as prinftul } from "../lib/printful"
+import { syncPrintful as prinftul } from '../lib/printful'
 
 export const syncPrintfulType = `
     type Mutation {

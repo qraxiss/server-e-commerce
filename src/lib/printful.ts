@@ -78,7 +78,7 @@ export async function getVariants({ printId }) {
     return data
 }
 
-export async function getAllProductsDetails(){
+export async function getAllProductsDetails() {
     let data = await getAllProducts()
     return await Promise.all(
         data.map(async (item) => {
@@ -88,23 +88,26 @@ export async function getAllProductsDetails(){
                 price: variants.variants[0].price,
                 ...variants
             }
-    
         })
     )
 }
 
-export async function syncPrintful(){
+export async function syncPrintful() {
     let allData = await getAllProductsDetails()
     let createdItems = []
     console.log(allData)
 
     for (let index = 0; index < allData.length; index++) {
-        const element = allData[index];
+        const element = allData[index]
         console.log(element)
 
-        let item  = await createProductWithSlug({}, {
-            ...element,
-        }, {})
+        let item = await createProductWithSlug(
+            {},
+            {
+                ...element
+            },
+            {}
+        )
         console.log(item)
 
         createdItems.push(item)
@@ -112,6 +115,5 @@ export async function syncPrintful(){
 
     return createdItems
 }
-
 
 getAllProducts().then(console.log)
