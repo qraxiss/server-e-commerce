@@ -574,6 +574,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
         name: Attribute.String
         cart: Attribute.JSON
         walletAddress: Attribute.String & Attribute.Unique
+        wishlist: Attribute.JSON
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'plugin::users-permissions.user', 'oneToOne', 'admin::user'> & Attribute.Private
