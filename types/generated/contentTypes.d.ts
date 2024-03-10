@@ -729,7 +729,6 @@ export interface ApiOptionOption extends Schema.CollectionType {
     attributes: {
         value: Attribute.String
         variant: Attribute.Relation<'api::option.option', 'manyToOne', 'api::variant.variant'>
-        products: Attribute.Relation<'api::option.option', 'manyToMany', 'api::product.product'>
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::option.option', 'oneToOne', 'admin::user'> & Attribute.Private
@@ -845,22 +844,7 @@ export interface ApiProductProduct extends Schema.CollectionType {
                     localized: true
                 }
             }>
-        price: Attribute.Decimal &
-            Attribute.Required &
-            Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: true
-                }
-            }>
-        images: Attribute.Media &
-            Attribute.Required &
-            Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: true
-                }
-            }>
         description: Attribute.Text &
-            Attribute.Required &
             Attribute.SetPluginOptions<{
                 i18n: {
                     localized: true
@@ -874,7 +858,36 @@ export interface ApiProductProduct extends Schema.CollectionType {
                     localized: true
                 }
             }>
-        options: Attribute.Relation<'api::product.product', 'manyToMany', 'api::option.option'>
+        variants: Attribute.JSON &
+            Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true
+                }
+            }>
+        size: Attribute.JSON &
+            Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true
+                }
+            }>
+        color: Attribute.JSON &
+            Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true
+                }
+            }>
+        image: Attribute.String &
+            Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true
+                }
+            }>
+        printId: Attribute.Integer &
+            Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true
+                }
+            }>
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::product.product', 'oneToOne', 'admin::user'> & Attribute.Private

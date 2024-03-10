@@ -18,6 +18,8 @@ import {
     filterProductsType
 } from './product'
 
+import { syncPrintful, syncPrintfulType } from './printful'
+
 import { nonce, nonceType, registerWithWallet, registerWithWalletType, loginWithWallet, loginWithWalletType } from './wallet'
 
 import { cart, cartType, addProductToCart, addProductToCartType, deleteProductFromCart, deleteProductFromCartType } from './cart'
@@ -27,6 +29,7 @@ import { profilePicture, profilePictureType, accountInformation, accountInformat
 let typeList = [
     cartType,
     nonceType,
+    syncPrintfulType,
     registerWithWalletType,
     loginWithWalletType,
     filterProductsType,
@@ -75,6 +78,9 @@ export function createCustomMutationResolver({ strapi }) {
                 },
                 loginWithWallet: {
                     auth: false
+                },
+                syncPrintful: {
+                    auth: false
                 }
             }
         },
@@ -106,11 +112,14 @@ export function createCustomMutationResolver({ strapi }) {
                 },
                 nonce: {
                     resolve: nonce
-                },
+                }
             },
             Mutation: {
                 registerWithWallet: {
                     resolve: registerWithWallet
+                },
+                syncPrintful: {
+                    resolve: syncPrintful
                 },
                 loginWithWallet: {
                     resolve: loginWithWallet

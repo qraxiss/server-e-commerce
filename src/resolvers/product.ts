@@ -4,10 +4,8 @@ export const createProductWithSlugType = `
   }
 `
 
-export async function createProductWithSlug(obj, options, { context }) {
-    let data = JSON.parse(JSON.stringify(options.data))
-
-    const result = await strapi.service('api::product.product').createWithSlug(data)
+export async function createProductWithSlug(obj = {}, options, context = {}) {
+    const result = await strapi.service('api::product.product').createWithSlug(options)
 
     return result
 }

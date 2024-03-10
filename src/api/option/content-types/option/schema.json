@@ -1,31 +1,25 @@
 {
-    "kind": "collectionType",
-    "collectionName": "options",
-    "info": {
-        "singularName": "option",
-        "pluralName": "options",
-        "displayName": "option",
-        "description": ""
+  "kind": "collectionType",
+  "collectionName": "options",
+  "info": {
+    "singularName": "option",
+    "pluralName": "options",
+    "displayName": "option",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "value": {
+      "type": "string"
     },
-    "options": {
-        "draftAndPublish": false
-    },
-    "pluginOptions": {},
-    "attributes": {
-        "value": {
-            "type": "string"
-        },
-        "variant": {
-            "type": "relation",
-            "relation": "manyToOne",
-            "target": "api::variant.variant",
-            "inversedBy": "options"
-        },
-        "products": {
-            "type": "relation",
-            "relation": "manyToMany",
-            "target": "api::product.product",
-            "inversedBy": "options"
-        }
+    "variant": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::variant.variant",
+      "inversedBy": "options"
     }
+  }
 }
