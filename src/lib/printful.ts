@@ -95,11 +95,9 @@ export async function getAllProductsDetails() {
 export async function syncPrintful() {
     let allData = await getAllProductsDetails()
     let createdItems = []
-    console.log(allData)
 
     for (let index = 0; index < allData.length; index++) {
         const element = allData[index]
-        console.log(element)
 
         let item = await createProductWithSlug(
             {},
@@ -108,12 +106,9 @@ export async function syncPrintful() {
             },
             {}
         )
-        console.log(item)
 
         createdItems.push(item)
     }
 
     return createdItems
 }
-
-getAllProducts().then(console.log)
