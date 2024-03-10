@@ -616,8 +616,6 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
         name: Attribute.String
         products: Attribute.Relation<'api::category.category', 'manyToMany', 'api::product.product'>
         slug: Attribute.String & Attribute.Unique
-        parent_categories: Attribute.Relation<'api::category.category', 'manyToMany', 'api::parent-category.parent-category'>
-        variants: Attribute.Relation<'api::category.category', 'manyToMany', 'api::variant.variant'>
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::category.category', 'oneToOne', 'admin::user'> & Attribute.Private
@@ -755,29 +753,6 @@ export interface ApiPagePage extends Schema.SingleType {
         publishedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::page.page', 'oneToOne', 'admin::user'> & Attribute.Private
         updatedBy: Attribute.Relation<'api::page.page', 'oneToOne', 'admin::user'> & Attribute.Private
-    }
-}
-
-export interface ApiParentCategoryParentCategory extends Schema.CollectionType {
-    collectionName: 'parent_categories'
-    info: {
-        singularName: 'parent-category'
-        pluralName: 'parent-categories'
-        displayName: 'parent category'
-        description: ''
-    }
-    options: {
-        draftAndPublish: false
-    }
-    attributes: {
-        name: Attribute.String & Attribute.Required
-        slug: Attribute.String & Attribute.Required & Attribute.Unique
-        childs: Attribute.Relation<'api::parent-category.parent-category', 'manyToMany', 'api::category.category'>
-        icon: Attribute.Media
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::parent-category.parent-category', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::parent-category.parent-category', 'oneToOne', 'admin::user'> & Attribute.Private
     }
 }
 
@@ -938,7 +913,6 @@ export interface ApiVariantVariant extends Schema.CollectionType {
     attributes: {
         name: Attribute.String & Attribute.Required
         key: Attribute.String & Attribute.Required & Attribute.Unique
-        categories: Attribute.Relation<'api::variant.variant', 'manyToMany', 'api::category.category'>
         options: Attribute.Relation<'api::variant.variant', 'oneToMany', 'api::option.option'>
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
@@ -973,7 +947,6 @@ declare module '@strapi/types' {
             'api::logo.logo': ApiLogoLogo
             'api::option.option': ApiOptionOption
             'api::page.page': ApiPagePage
-            'api::parent-category.parent-category': ApiParentCategoryParentCategory
             'api::people.people': ApiPeoplePeople
             'api::picture.picture': ApiPicturePicture
             'api::product.product': ApiProductProduct
