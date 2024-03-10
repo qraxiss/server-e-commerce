@@ -15,7 +15,7 @@ export async function createCategoryWithSlug(obj, options, { context }) {
 export const categoryBySlugType = `
   type CategoryBySlug {
     category: Category!
-    variants: [Variant]
+    variants: [JSON]
     products: [Product]
   }
 

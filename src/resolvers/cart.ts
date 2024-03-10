@@ -232,5 +232,5 @@ export async function addManyCart(obj, { items }: { items: any[] }, { context })
         }
     })
 
-    return [!areObjectsEqual(result.cart, cart)]
+    return !areObjectsEqual(result.cart, cart)
 }

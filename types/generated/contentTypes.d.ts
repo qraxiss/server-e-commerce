@@ -283,6 +283,135 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
     }
 }
 
+export interface ApiCategoryCategory extends Schema.CollectionType {
+    collectionName: 'categories'
+    info: {
+        singularName: 'category'
+        pluralName: 'categories'
+        displayName: 'category'
+        description: ''
+    }
+    options: {
+        draftAndPublish: false
+    }
+    attributes: {
+        name: Attribute.String
+        products: Attribute.Relation<'api::category.category', 'manyToMany', 'api::product.product'>
+        slug: Attribute.String & Attribute.Unique
+        createdAt: Attribute.DateTime
+        updatedAt: Attribute.DateTime
+        createdBy: Attribute.Relation<'api::category.category', 'oneToOne', 'admin::user'> & Attribute.Private
+        updatedBy: Attribute.Relation<'api::category.category', 'oneToOne', 'admin::user'> & Attribute.Private
+    }
+}
+
+export interface ApiContactContact extends Schema.CollectionType {
+    collectionName: 'contacts'
+    info: {
+        singularName: 'contact'
+        pluralName: 'contacts'
+        displayName: 'contact'
+        description: ''
+    }
+    options: {
+        draftAndPublish: false
+    }
+    attributes: {
+        name: Attribute.String & Attribute.Required
+        subject: Attribute.String & Attribute.Required
+        email: Attribute.Email & Attribute.Required
+        message: Attribute.Text & Attribute.Required
+        createdAt: Attribute.DateTime
+        updatedAt: Attribute.DateTime
+        createdBy: Attribute.Relation<'api::contact.contact', 'oneToOne', 'admin::user'> & Attribute.Private
+        updatedBy: Attribute.Relation<'api::contact.contact', 'oneToOne', 'admin::user'> & Attribute.Private
+    }
+}
+
+export interface ApiProductProduct extends Schema.CollectionType {
+    collectionName: 'products'
+    info: {
+        singularName: 'product'
+        pluralName: 'products'
+        displayName: 'product'
+        description: ''
+    }
+    options: {
+        draftAndPublish: false
+    }
+    pluginOptions: {
+        i18n: {
+            localized: true
+        }
+    }
+    attributes: {
+        name: Attribute.String &
+            Attribute.Required &
+            Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true
+                }
+            }>
+        description: Attribute.Text &
+            Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true
+                }
+            }>
+        categories: Attribute.Relation<'api::product.product', 'manyToMany', 'api::category.category'>
+        slug: Attribute.String &
+            Attribute.Unique &
+            Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true
+                }
+            }>
+        variants: Attribute.JSON &
+            Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true
+                }
+            }>
+        size: Attribute.JSON &
+            Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true
+                }
+            }>
+        color: Attribute.JSON &
+            Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true
+                }
+            }>
+        image: Attribute.String &
+            Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true
+                }
+            }>
+        productId: Attribute.Integer &
+            Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true
+                }
+            }>
+        price: Attribute.Float &
+            Attribute.Required &
+            Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true
+                }
+            }>
+        createdAt: Attribute.DateTime
+        updatedAt: Attribute.DateTime
+        createdBy: Attribute.Relation<'api::product.product', 'oneToOne', 'admin::user'> & Attribute.Private
+        updatedBy: Attribute.Relation<'api::product.product', 'oneToOne', 'admin::user'> & Attribute.Private
+        localizations: Attribute.Relation<'api::product.product', 'oneToMany', 'api::product.product'>
+        locale: Attribute.String
+    }
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
     collectionName: 'files'
     info: {
@@ -568,357 +697,14 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
         confirmed: Attribute.Boolean & Attribute.DefaultTo<false>
         blocked: Attribute.Boolean & Attribute.DefaultTo<false>
         role: Attribute.Relation<'plugin::users-permissions.user', 'manyToOne', 'plugin::users-permissions.role'>
-        picture: Attribute.Media
-        addresses: Attribute.Component<'user.address', true>
-        surname: Attribute.String
-        name: Attribute.String
         cart: Attribute.JSON
         walletAddress: Attribute.String & Attribute.Unique
         wishlist: Attribute.JSON
+        addresses: Attribute.JSON
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'plugin::users-permissions.user', 'oneToOne', 'admin::user'> & Attribute.Private
         updatedBy: Attribute.Relation<'plugin::users-permissions.user', 'oneToOne', 'admin::user'> & Attribute.Private
-    }
-}
-
-export interface ApiCampaignCampaign extends Schema.SingleType {
-    collectionName: 'campaigns'
-    info: {
-        singularName: 'campaign'
-        pluralName: 'campaigns'
-        displayName: 'campaign'
-        description: ''
-    }
-    options: {
-        draftAndPublish: false
-    }
-    attributes: {
-        campaigns: Attribute.Component<'static.campaign', true>
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::campaign.campaign', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::campaign.campaign', 'oneToOne', 'admin::user'> & Attribute.Private
-    }
-}
-
-export interface ApiCategoryCategory extends Schema.CollectionType {
-    collectionName: 'categories'
-    info: {
-        singularName: 'category'
-        pluralName: 'categories'
-        displayName: 'category'
-        description: ''
-    }
-    options: {
-        draftAndPublish: false
-    }
-    attributes: {
-        name: Attribute.String
-        products: Attribute.Relation<'api::category.category', 'manyToMany', 'api::product.product'>
-        slug: Attribute.String & Attribute.Unique
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::category.category', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::category.category', 'oneToOne', 'admin::user'> & Attribute.Private
-    }
-}
-
-export interface ApiContactContact extends Schema.CollectionType {
-    collectionName: 'contacts'
-    info: {
-        singularName: 'contact'
-        pluralName: 'contacts'
-        displayName: 'contact'
-        description: ''
-    }
-    options: {
-        draftAndPublish: false
-    }
-    attributes: {
-        name: Attribute.String & Attribute.Required
-        subject: Attribute.String & Attribute.Required
-        email: Attribute.Email & Attribute.Required
-        message: Attribute.Text & Attribute.Required
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::contact.contact', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::contact.contact', 'oneToOne', 'admin::user'> & Attribute.Private
-    }
-}
-
-export interface ApiFooterFooter extends Schema.SingleType {
-    collectionName: 'footers'
-    info: {
-        singularName: 'footer'
-        pluralName: 'footers'
-        displayName: 'footer'
-        description: ''
-    }
-    options: {
-        draftAndPublish: false
-    }
-    attributes: {
-        shopcek: Attribute.Component<'static.footer-item', true>
-        legal: Attribute.Component<'static.footer-item', true>
-        about: Attribute.String & Attribute.Required
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::footer.footer', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::footer.footer', 'oneToOne', 'admin::user'> & Attribute.Private
-    }
-}
-
-export interface ApiIconIcon extends Schema.SingleType {
-    collectionName: 'icons'
-    info: {
-        singularName: 'icon'
-        pluralName: 'icons'
-        displayName: 'Icon'
-        description: ''
-    }
-    options: {
-        draftAndPublish: false
-    }
-    attributes: {
-        cart: Attribute.Media
-        wishlist: Attribute.Media
-        account: Attribute.Media
-        collections: Attribute.Media
-        delivery: Attribute.Media
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::icon.icon', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::icon.icon', 'oneToOne', 'admin::user'> & Attribute.Private
-    }
-}
-
-export interface ApiLogoLogo extends Schema.SingleType {
-    collectionName: 'logos'
-    info: {
-        singularName: 'logo'
-        pluralName: 'logos'
-        displayName: 'logo'
-        description: ''
-    }
-    options: {
-        draftAndPublish: false
-    }
-    attributes: {
-        icon: Attribute.Media
-        text: Attribute.Media
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::logo.logo', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::logo.logo', 'oneToOne', 'admin::user'> & Attribute.Private
-    }
-}
-
-export interface ApiOptionOption extends Schema.CollectionType {
-    collectionName: 'options'
-    info: {
-        singularName: 'option'
-        pluralName: 'options'
-        displayName: 'option'
-        description: ''
-    }
-    options: {
-        draftAndPublish: false
-    }
-    attributes: {
-        value: Attribute.String
-        variant: Attribute.Relation<'api::option.option', 'manyToOne', 'api::variant.variant'>
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::option.option', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::option.option', 'oneToOne', 'admin::user'> & Attribute.Private
-    }
-}
-
-export interface ApiPagePage extends Schema.SingleType {
-    collectionName: 'pages'
-    info: {
-        singularName: 'page'
-        pluralName: 'pages'
-        displayName: 'page'
-        description: ''
-    }
-    options: {
-        draftAndPublish: true
-    }
-    attributes: {
-        header: Attribute.Component<'pages.complete-page', true>
-        collections: Attribute.Component<'pages.complete-page', true>
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        publishedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::page.page', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::page.page', 'oneToOne', 'admin::user'> & Attribute.Private
-    }
-}
-
-export interface ApiPeoplePeople extends Schema.SingleType {
-    collectionName: 'peoples'
-    info: {
-        singularName: 'people'
-        pluralName: 'peoples'
-        displayName: 'people'
-        description: ''
-    }
-    options: {
-        draftAndPublish: false
-    }
-    attributes: {
-        people: Attribute.Component<'static.people', true>
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::people.people', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::people.people', 'oneToOne', 'admin::user'> & Attribute.Private
-    }
-}
-
-export interface ApiPicturePicture extends Schema.SingleType {
-    collectionName: 'pictures'
-    info: {
-        singularName: 'picture'
-        pluralName: 'pictures'
-        displayName: 'Default Picture'
-    }
-    options: {
-        draftAndPublish: false
-    }
-    attributes: {
-        profilePicture: Attribute.Media & Attribute.Required
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::picture.picture', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::picture.picture', 'oneToOne', 'admin::user'> & Attribute.Private
-    }
-}
-
-export interface ApiProductProduct extends Schema.CollectionType {
-    collectionName: 'products'
-    info: {
-        singularName: 'product'
-        pluralName: 'products'
-        displayName: 'product'
-        description: ''
-    }
-    options: {
-        draftAndPublish: false
-    }
-    pluginOptions: {
-        i18n: {
-            localized: true
-        }
-    }
-    attributes: {
-        name: Attribute.String &
-            Attribute.Required &
-            Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: true
-                }
-            }>
-        description: Attribute.Text &
-            Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: true
-                }
-            }>
-        categories: Attribute.Relation<'api::product.product', 'manyToMany', 'api::category.category'>
-        slug: Attribute.String &
-            Attribute.Unique &
-            Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: true
-                }
-            }>
-        variants: Attribute.JSON &
-            Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: true
-                }
-            }>
-        size: Attribute.JSON &
-            Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: true
-                }
-            }>
-        color: Attribute.JSON &
-            Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: true
-                }
-            }>
-        image: Attribute.String &
-            Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: true
-                }
-            }>
-        printId: Attribute.Integer &
-            Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: true
-                }
-            }>
-        price: Attribute.Float &
-            Attribute.Required &
-            Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: true
-                }
-            }>
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::product.product', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::product.product', 'oneToOne', 'admin::user'> & Attribute.Private
-        localizations: Attribute.Relation<'api::product.product', 'oneToMany', 'api::product.product'>
-        locale: Attribute.String
-    }
-}
-
-export interface ApiSocialSocial extends Schema.SingleType {
-    collectionName: 'socials'
-    info: {
-        singularName: 'social'
-        pluralName: 'socials'
-        displayName: 'social'
-        description: ''
-    }
-    options: {
-        draftAndPublish: false
-    }
-    attributes: {
-        socials: Attribute.Component<'static.social', true>
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::social.social', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::social.social', 'oneToOne', 'admin::user'> & Attribute.Private
-    }
-}
-
-export interface ApiVariantVariant extends Schema.CollectionType {
-    collectionName: 'variants'
-    info: {
-        singularName: 'variant'
-        pluralName: 'variants'
-        displayName: 'variant'
-        description: ''
-    }
-    options: {
-        draftAndPublish: false
-    }
-    attributes: {
-        name: Attribute.String & Attribute.Required
-        key: Attribute.String & Attribute.Required & Attribute.Unique
-        options: Attribute.Relation<'api::variant.variant', 'oneToMany', 'api::option.option'>
-        createdAt: Attribute.DateTime
-        updatedAt: Attribute.DateTime
-        createdBy: Attribute.Relation<'api::variant.variant', 'oneToOne', 'admin::user'> & Attribute.Private
-        updatedBy: Attribute.Relation<'api::variant.variant', 'oneToOne', 'admin::user'> & Attribute.Private
     }
 }
 
@@ -932,6 +718,9 @@ declare module '@strapi/types' {
             'admin::api-token-permission': AdminApiTokenPermission
             'admin::transfer-token': AdminTransferToken
             'admin::transfer-token-permission': AdminTransferTokenPermission
+            'api::category.category': ApiCategoryCategory
+            'api::contact.contact': ApiContactContact
+            'api::product.product': ApiProductProduct
             'plugin::upload.file': PluginUploadFile
             'plugin::upload.folder': PluginUploadFolder
             'plugin::content-releases.release': PluginContentReleasesRelease
@@ -940,19 +729,6 @@ declare module '@strapi/types' {
             'plugin::users-permissions.permission': PluginUsersPermissionsPermission
             'plugin::users-permissions.role': PluginUsersPermissionsRole
             'plugin::users-permissions.user': PluginUsersPermissionsUser
-            'api::campaign.campaign': ApiCampaignCampaign
-            'api::category.category': ApiCategoryCategory
-            'api::contact.contact': ApiContactContact
-            'api::footer.footer': ApiFooterFooter
-            'api::icon.icon': ApiIconIcon
-            'api::logo.logo': ApiLogoLogo
-            'api::option.option': ApiOptionOption
-            'api::page.page': ApiPagePage
-            'api::people.people': ApiPeoplePeople
-            'api::picture.picture': ApiPicturePicture
-            'api::product.product': ApiProductProduct
-            'api::social.social': ApiSocialSocial
-            'api::variant.variant': ApiVariantVariant
         }
     }
 }

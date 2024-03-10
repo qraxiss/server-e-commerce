@@ -51,15 +51,15 @@ export async function getAllProducts() {
 
     return data.map((item) => {
         return {
-            printId: item.id,
+            productId: item.id,
             name: item.name,
             image: item.thumbnail_url
         }
     })
 }
 
-export async function getVariants({ printId }) {
-    let data = printfulRequestWrapper(await printfulClient.get(`/store/products/${printId}`))
+export async function getVariants({ productId }) {
+    let data = printfulRequestWrapper(await printfulClient.get(`/store/products/${productId}`))
 
     data = data.sync_variants.map((variant) => {
         return {
