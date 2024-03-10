@@ -631,6 +631,7 @@ export interface ApiOrderOrder extends Schema.CollectionType {
         singularName: 'order'
         pluralName: 'orders'
         displayName: 'Order'
+        description: ''
     }
     options: {
         draftAndPublish: true
@@ -640,6 +641,7 @@ export interface ApiOrderOrder extends Schema.CollectionType {
         color: Attribute.String
         size: Attribute.String
         status: Attribute.String
+        orderId: Attribute.Integer
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         publishedAt: Attribute.DateTime

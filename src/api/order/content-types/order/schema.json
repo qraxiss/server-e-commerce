@@ -4,7 +4,8 @@
   "info": {
     "singularName": "order",
     "pluralName": "orders",
-    "displayName": "Order"
+    "displayName": "Order",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -24,6 +25,9 @@
     },
     "status": {
       "type": "string"
+    },
+    "orderId": {
+      "type": "integer"
     }
   }
 }
