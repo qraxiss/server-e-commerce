@@ -88,6 +88,15 @@
         }
       },
       "type": "integer"
+    },
+    "price": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "float",
+      "required": true
     }
   }
 }

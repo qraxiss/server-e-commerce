@@ -63,7 +63,7 @@ export async function getVariants({ printId }) {
 
     data = data.sync_variants.map((variant) => {
         return {
-            price: variant.retail_price,
+            price: Number(variant.retail_price),
             image: variant.files[1].preview_url,
             size: variant.size,
             color: variant.color
@@ -82,9 +82,11 @@ export async function getAllProductsDetails(){
     let data = await getAllProducts()
     return await Promise.all(
         data.map(async (item) => {
+            let variants = await getVariants(item)
             return {
                 ...item,
-                ...(await getVariants(item))
+                price: variants.variants[0].price,
+                ...variants
             }
     
         })
@@ -110,3 +112,6 @@ export async function syncPrintful(){
 
     return createdItems
 }
+
+
+getAllProducts().then(console.log)

@@ -888,6 +888,13 @@ export interface ApiProductProduct extends Schema.CollectionType {
                     localized: true
                 }
             }>
+        price: Attribute.Float &
+            Attribute.Required &
+            Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true
+                }
+            }>
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::product.product', 'oneToOne', 'admin::user'> & Attribute.Private
