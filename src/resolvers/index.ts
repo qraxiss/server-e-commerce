@@ -22,7 +22,7 @@ import { syncPrintful, syncPrintfulType } from './printful'
 
 import { nonce, nonceType, registerWithWallet, registerWithWalletType, loginWithWallet, loginWithWalletType } from './wallet'
 
-import { cart, cartType, addProductToCart, addProductToCartType, deleteProductFromCart, deleteProductFromCartType } from './cart'
+import { cart, cartType, addProductToCart, addProductToCartType, deleteProductFromCart, deleteProductFromCartType, addManyCart, addManyCartType } from './cart'
 
 import { profilePicture, profilePictureType, accountInformation, accountInformationType } from './user'
 
@@ -42,7 +42,8 @@ let typeList = [
     accountInformationType,
     productsBySlugType,
     deleteProductFromCartType,
-    productByCategoryType
+    productByCategoryType,
+    addManyCartType
 ]
 
 export function createCustomMutationResolver({ strapi }) {
@@ -135,6 +136,9 @@ export function createCustomMutationResolver({ strapi }) {
                 },
                 createProductWithSlug: {
                     resolve: createProductWithSlug
+                },
+                addManyCart: {
+                    resolve: addManyCart
                 }
             }
         }

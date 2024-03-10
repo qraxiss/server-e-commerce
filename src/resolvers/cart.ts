@@ -72,19 +72,16 @@ export async function cart() {
 }
 
 export const addProductToCartType = `
-    type OptionProduct {
-        option: String!
-        value: String!
-    }
-
     type Mutation {
         addProductToCart(slug: String!, options: JSON!, count: Int!=1): JSON!
     }
 `
 
-export async function addProductToCart(obj, args, { context }) {
+export async function addProductToCart(obj, args, context) {
     let { slug } = args
     let user = strapi.requestContext.get().state.user
+
+    // console.log(args)
 
     let product = await productBySlug({}, { slug }, {})
 
@@ -107,17 +104,13 @@ export async function addProductToCart(obj, args, { context }) {
         cart = []
     }
 
-    let find: boolean = false
-    for (let index = 0; index < cart.length; index++) {
-        const product = cart[index]
+    let index = cart.findIndex((product) => {
+        return product.slug === args.slug && areObjectsEqual(product.options, args.options)
+    })
 
-        if (product.slug === args.slug && areObjectsEqual(product.options, args.options)) {
-            find = true
-            cart[index].count = cart[index].count + args.count
-            break
-        }
-    }
-    if (!find) {
+    if (index !== -1) {
+        cart[index].count = cart[index].count + args.count
+    } else {
         cart.push(args)
     }
 
@@ -181,7 +174,6 @@ export async function deleteProductFromCart(
             const product = cart[index]
 
             if (product.slug === slug && areObjectsEqual(product.options, options)) {
-                console.log(cart[index])
                 cart[index].count = cart[index].count - 1
             }
         }
@@ -204,4 +196,60 @@ export async function deleteProductFromCart(
     } else {
         return false
     }
+}
+
+export const addManyCartType = `
+    type Mutation {
+        addManyCart(items: [JSON!]!): Boolean!
+    }
+
+    type CartItemInput {
+        options: JSON!
+        count: Int!
+        slug: String!
+    }
+`
+
+export async function addManyCart(obj, { items }: { items: any[] }, { context }) {
+    let user = strapi.requestContext.get().state.user
+
+    let cart = (
+        await strapi.db.query('plugin::users-permissions.user').findOne({
+            where: {
+                id: user.id
+            },
+            populate: {
+                cart: '*'
+            }
+        })
+    ).cart as product[]
+
+    if (!cart) {
+        cart = []
+    }
+    items.map(async (newProduct) => {
+        let index = cart.findIndex((product) => {
+            return product.slug === newProduct.slug && areObjectsEqual(product.options, newProduct.options)
+        })
+
+        if (index !== -1) {
+            cart[index].count = cart[index].count + newProduct.count
+        } else {
+            cart.push(newProduct)
+        }
+    })
+
+    let result = await strapi.db.query('plugin::users-permissions.user').update({
+        where: {
+            id: user.id
+        },
+        data: {
+            cart
+        },
+        populate: {
+            cart: '*'
+        }
+    })
+
+    return [!areObjectsEqual(result.cart, cart)]
 }
