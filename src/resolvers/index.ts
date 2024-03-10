@@ -28,7 +28,7 @@ import { nonce, nonceType, registerWithWallet, registerWithWalletType, loginWith
 
 import { cart, cartType, addProductToCart, addProductToCartType, deleteProductFromCart, deleteProductFromCartType, addManyCart, addManyCartType } from './cart'
 
-import { profilePicture, profilePictureType, accountInformation, accountInformationType } from './user'
+import { accountInformation, accountInformationType } from './user'
 
 let typeList = [
     cartType,
@@ -45,7 +45,6 @@ let typeList = [
     productBySlugType,
     categoryBySlugType,
     addProductToCartType,
-    profilePictureType,
     accountInformationType,
     productsBySlugType,
     deleteProductFromCartType,
@@ -108,9 +107,6 @@ export function createCustomMutationResolver({ strapi }) {
                 },
                 categoryBySlug: {
                     resolve: categoryBySlug
-                },
-                profilePicture: {
-                    resolve: profilePicture
                 },
                 accountInformation: {
                     resolve: accountInformation
