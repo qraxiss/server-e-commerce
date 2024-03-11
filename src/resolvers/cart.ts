@@ -110,6 +110,7 @@ export async function addProductToCart(obj, args, context) {
     return !areObjectsEqual(result.cart, cart)
 }
 
+
 export const deleteProductFromCartType = `
     type Mutation {
         deleteProductFromCart(slug: String!, deleteAll: Boolean=false, options:JSON!): JSON!
