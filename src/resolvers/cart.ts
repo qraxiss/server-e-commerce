@@ -146,9 +146,17 @@ export async function deleteProductFromCart(
         return false
     }
 
-    if (deleteAll) {
-        cart = cart.filter((product) => {
-            return !(product.slug === slug && areObjectsEqual(product.options, options))
+    let item = cart.findIndex((product=>{
+        return product.slug === slug && areObjectsEqual(product.options, options)
+    }))
+
+    if (item === -1){
+        return false
+    }
+
+    if (deleteAll || cart[item].count <= 1) {
+        cart = cart.filter((product, index) => {
+            return item !== index
         })
     } else {
         for (let index = 0; index < cart.length; index++) {
