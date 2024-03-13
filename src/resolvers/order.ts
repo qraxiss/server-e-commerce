@@ -1,5 +1,4 @@
 import { newOrderPrintful, getVariant } from '../lib/printful'
-import { productBySlug } from './product'
 
 export const newOrderType = `
     type Mutation  {
@@ -13,7 +12,9 @@ export async function newOrder() {
             id: strapi.requestContext.get().state.user.id
         },
         populate: {
-            cart: '*'
+            cart: '*',
+            recipient: '*',
+            orders: '*'
         }
     })
 
@@ -27,13 +28,17 @@ export async function newOrder() {
         }
     })
 
+    console.log(products)
+
     // cart with variant id
     let cart = user.cart.map((item: any, index: number) => {
         let variants = products[index].variants as any[]
-
+        console.log(variants)
         let variant = variants.find((variant) => {
             return variant.size === item.options.size && variant.color === item.options.color
         })
+
+        
 
         return {
             variantId: variant.variantId,
@@ -51,5 +56,60 @@ export async function newOrder() {
         })
     )
 
-    return await newOrderPrintful({ items })
+    let newOrder = await newOrderPrintful({ items, recipient: user.recipient })
+
+
+    return !!(strapi.db.query('plugin::users-permissions.user').update({
+        where: {
+            id: strapi.requestContext.get().state.user.id
+        },
+        populate: {
+            cart: '*',
+            orders: '*'
+        },
+        data: {
+            orders: Array.isArray(user.orders) ? [...user.orders, user.cart] : [user.cart],
+            cart: []
+        }
+    }))
+}
+
+export const ordersType = `
+    type Query {
+        orders: JSON!
+    }
+`
+
+export async function orders(obj, args, context) {
+    let user = await strapi.db.query('plugin::users-permissions.user').findOne({
+        where: {
+            id: strapi.requestContext.get().state.user.id
+        },
+        populate: {
+            orders: '*',
+            recipient: '*'
+        }
+    })
+
+    return Promise.all(
+        user.orders.map(async (order) => {
+            let products = await strapi.entityService.findMany('api::product.product', {
+                filters: {
+                    slug: {
+                        $in: order.map((element) => {
+                            return element.slug
+                        })
+                    }
+                }
+            })
+
+            return order.map((productElement: any) => {
+                return {
+                    product: products.find((element) => productElement.slug === element.slug),
+                    count: productElement.count,
+                    options: productElement.options
+                }
+            })
+        })
+    )
 }

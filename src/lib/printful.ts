@@ -121,29 +121,21 @@ export async function syncPrintful() {
 }
 
 export async function newOrderPrintful({
-    recipient = {
-        name: 'John Smith',
-        address1: '19749 Dearborn St',
-        address2: 'string',
-        city: 'Chatsworth',
-        state_code: 'CA',
-        state_name: 'California',
-        country_code: 'US',
-        country_name: 'United States',
-        zip: '91311',
-        phone: '+905319158427',
-        email: '1tusbozuk@gmail.com'
-    },
+    recipient,
     items
 }) {
     let data = printfulRequestWrapper(
         await printfulClient.post(`/orders`, {
             items,
-            recipient
+            recipient,
+            "packing_slip": {
+                "email": "info@shopcek.com",
+                "message": "iLoveCrypto",
+                "logo_url": "",
+                "store_name": "Shopcek"
+                }
         })
     )
-
-    console.log(data)
 
     return data
 }

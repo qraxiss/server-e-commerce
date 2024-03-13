@@ -35,11 +35,14 @@ import {
     addManyCartType
 } from './cart'
 
-import { accountInformation, accountInformationType } from './user'
+import { accountInformation, accountInformationType, recipient, recipientTpye, updateRecipient, updateRecipientTpye } from './user'
 
-import { newOrder, newOrderType } from './order'
+import { newOrder, newOrderType, orders, ordersType } from './order'
 
 let typeList = [
+    recipientTpye,
+    ordersType,
+    updateRecipientTpye,
     cartType,
     newOrderType,
     nonceType,
@@ -103,6 +106,12 @@ export function createCustomMutationResolver({ strapi }) {
         },
         resolvers: {
             Query: {
+                orders: {
+                    resolve: orders
+                },
+                recipient: {
+                    resolve: recipient
+                },
                 productByCategory: {
                     resolve: productByCategory
                 },
@@ -132,6 +141,9 @@ export function createCustomMutationResolver({ strapi }) {
                 }
             },
             Mutation: {
+                updateRecipient: {
+                    resolve: updateRecipient
+                },
                 registerWithWallet: {
                     resolve: registerWithWallet
                 },
