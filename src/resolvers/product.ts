@@ -89,7 +89,6 @@ export async function filterProducts(obj, args, context) {
                     return product.id === productz.id
                 })
 
-
                 if (!newProduct) {
                     allProducts.push(product)
                 }

@@ -18,20 +18,30 @@ import {
     filterProductsType
 } from './product'
 
-import {
-    wishlist, wishlistType, addWishlist, addWishlistType, deleteWishListType, deleteWishlist
-} from './wishlist'
+import { wishlist, wishlistType, addWishlist, addWishlistType, deleteWishListType, deleteWishlist } from './wishlist'
 
 import { syncPrintful, syncPrintfulType } from './printful'
 
 import { nonce, nonceType, registerWithWallet, registerWithWalletType, loginWithWallet, loginWithWalletType } from './wallet'
 
-import { cart, cartType, addProductToCart, addProductToCartType, deleteProductFromCart, deleteProductFromCartType, addManyCart, addManyCartType } from './cart'
+import {
+    cart,
+    cartType,
+    addProductToCart,
+    addProductToCartType,
+    deleteProductFromCart,
+    deleteProductFromCartType,
+    addManyCart,
+    addManyCartType
+} from './cart'
 
 import { accountInformation, accountInformationType } from './user'
 
+import { newOrder, newOrderType } from './order'
+
 let typeList = [
     cartType,
+    newOrderType,
     nonceType,
     wishlistType,
     deleteWishListType,
@@ -124,6 +134,9 @@ export function createCustomMutationResolver({ strapi }) {
             Mutation: {
                 registerWithWallet: {
                     resolve: registerWithWallet
+                },
+                newOrder: {
+                    resolve: newOrder
                 },
                 syncPrintful: {
                     resolve: syncPrintful

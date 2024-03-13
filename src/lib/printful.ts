@@ -66,7 +66,8 @@ export async function getVariants({ productId }) {
             price: Number(variant.retail_price),
             image: variant.files[1].preview_url,
             size: variant.size,
-            color: variant.color
+            color: variant.color,
+            variantId: variant.id
         }
     })
 
@@ -74,6 +75,12 @@ export async function getVariants({ productId }) {
         variants: data,
         ...getUniqueSizesAndColors(data)
     }
+
+    return data
+}
+
+export async function getVariant({ variantId }) {
+    let data = printfulRequestWrapper(await printfulClient.get(`/store/variants/${variantId}`))
 
     return data
 }
@@ -111,4 +118,32 @@ export async function syncPrintful() {
     }
 
     return createdItems
+}
+
+export async function newOrderPrintful({
+    recipient = {
+        name: 'John Smith',
+        address1: '19749 Dearborn St',
+        address2: 'string',
+        city: 'Chatsworth',
+        state_code: 'CA',
+        state_name: 'California',
+        country_code: 'US',
+        country_name: 'United States',
+        zip: '91311',
+        phone: '+905319158427',
+        email: '1tusbozuk@gmail.com'
+    },
+    items
+}) {
+    let data = printfulRequestWrapper(
+        await printfulClient.post(`/orders`, {
+            items,
+            recipient
+        })
+    )
+
+    console.log(data)
+
+    return data
 }

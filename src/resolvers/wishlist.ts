@@ -22,7 +22,7 @@ export async function wishlist(obj, args, context) {
         return []
     }
 
-    return await productsBySlug({}, {slugs: result.wishlist}, {})
+    return await productsBySlug({}, { slugs: result.wishlist }, {})
 }
 
 export const addWishlistType = `

@@ -110,7 +110,6 @@ export async function addProductToCart(obj, args, context) {
     return !areObjectsEqual(result.cart, cart)
 }
 
-
 export const deleteProductFromCartType = `
     type Mutation {
         deleteProductFromCart(slug: String!, deleteAll: Boolean=false, options:JSON!): JSON!
@@ -147,11 +146,11 @@ export async function deleteProductFromCart(
         return false
     }
 
-    let item = cart.findIndex((product=>{
+    let item = cart.findIndex((product) => {
         return product.slug === slug && areObjectsEqual(product.options, options)
-    }))
+    })
 
-    if (item === -1){
+    if (item === -1) {
         return false
     }
 

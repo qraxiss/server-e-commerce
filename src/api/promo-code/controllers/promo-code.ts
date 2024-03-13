@@ -4,4 +4,4 @@
 
 import { factories } from '@strapi/strapi'
 
-export default factories.createCoreController('api::promo-code.promo-code');
+export default factories.createCoreController('api::promo-code.promo-code')

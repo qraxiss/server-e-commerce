@@ -2,6 +2,6 @@
  * promo-code service
  */
 
-import { factories } from '@strapi/strapi';
+import { factories } from '@strapi/strapi'
 
-export default factories.createCoreService('api::promo-code.promo-code');
+export default factories.createCoreService('api::promo-code.promo-code')
