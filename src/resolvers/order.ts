@@ -28,17 +28,16 @@ export async function newOrder() {
         }
     })
 
-    console.log(products)
-
     // cart with variant id
     let cart = user.cart.map((item: any, index: number) => {
-        let variants = products[index].variants as any[]
-        console.log(variants)
+        let variants = products.find((product)=>{
+            return product.slug === item.slug
+        }).variants as any[]
+
         let variant = variants.find((variant) => {
             return variant.size === item.options.size && variant.color === item.options.color
         })
 
-        
 
         return {
             variantId: variant.variantId,
@@ -56,10 +55,10 @@ export async function newOrder() {
         })
     )
 
+
     let newOrder = await newOrderPrintful({ items, recipient: user.recipient })
 
-
-    return !!(strapi.db.query('plugin::users-permissions.user').update({
+    return !!(await strapi.db.query('plugin::users-permissions.user').update({
         where: {
             id: strapi.requestContext.get().state.user.id
         },

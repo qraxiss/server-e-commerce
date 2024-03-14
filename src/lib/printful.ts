@@ -131,7 +131,6 @@ export async function newOrderPrintful({
             "packing_slip": {
                 "email": "info@shopcek.com",
                 "message": "iLoveCrypto",
-                "logo_url": "",
                 "store_name": "Shopcek"
                 }
         })

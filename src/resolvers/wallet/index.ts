@@ -1,6 +1,6 @@
 import { generateUsername } from 'unique-username-generator'
 import { toPlainObject } from 'lodash/fp'
-import { getService } from './helpers'
+import { getService } from '../helpers'
 
 export const nonceType = `
     type Query {
@@ -50,7 +50,23 @@ export async function registerWithWallet(obj, { walletAddress }, context) {
         walletAddress,
         username,
         password: username,
-        email: `${username}@shopcek.com`
+        email: `${username}@shopcek.com`,
+        wishlist: [],
+        cart: [],
+        orders: [],
+        recipient: {
+            zip: '91313',
+            city: 'Newyork',
+            name: 'qraxiss',
+            phone: '+155555555',
+            address1: 'Bla bla bla',
+            address2: 'Bla bla bla',
+            state_code: 'CA',
+            state_name: 'Sample State Name',
+            country_code: 'US',
+            country_name: 'United States',
+            email: `${username}@shopcek.com`
+        }
     }
 
     let { koaContext } = context

@@ -39,6 +39,8 @@ import { accountInformation, accountInformationType, recipient, recipientTpye, u
 
 import { newOrder, newOrderType, orders, ordersType } from './order'
 
+import { registerWithDefaultValues, registerWithDefaultValuesType } from './user/auth'
+
 let typeList = [
     recipientTpye,
     ordersType,
@@ -62,7 +64,8 @@ let typeList = [
     productsBySlugType,
     deleteProductFromCartType,
     productByCategoryType,
-    addManyCartType
+    addManyCartType,
+    registerWithDefaultValuesType
 ]
 
 export function createCustomMutationResolver({ strapi }) {
@@ -100,6 +103,9 @@ export function createCustomMutationResolver({ strapi }) {
                     auth: false
                 },
                 syncPrintful: {
+                    auth: false
+                },
+                registerWithDefaultValues: {
                     auth: false
                 }
             }
@@ -176,6 +182,9 @@ export function createCustomMutationResolver({ strapi }) {
                 },
                 deleteWishlist: {
                     resolve: deleteWishlist
+                },
+                registerWithDefaultValues: {
+                    resolve: registerWithDefaultValues
                 }
             }
         }
