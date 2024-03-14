@@ -56,7 +56,12 @@ export async function newOrder() {
     )
 
 
-    let newOrder = await newOrderPrintful({ items, recipient: user.recipient })
+    try {
+        let newOrder = await newOrderPrintful({ items, recipient: user.recipient })
+    }
+    catch (e:any){
+        console.log(e.response.data)
+    }
 
     return !!(await strapi.db.query('plugin::users-permissions.user').update({
         where: {
