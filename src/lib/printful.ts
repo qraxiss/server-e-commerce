@@ -120,19 +120,16 @@ export async function syncPrintful() {
     return createdItems
 }
 
-export async function newOrderPrintful({
-    recipient,
-    items
-}) {
+export async function newOrderPrintful({ recipient, items }) {
     let data = printfulRequestWrapper(
         await printfulClient.post(`/orders`, {
             items,
             recipient,
-            "packing_slip": {
-                "email": "info@shopcek.com",
-                "message": "iLoveCrypto",
-                "store_name": "Shopcek"
-                }
+            packing_slip: {
+                email: 'info@shopcek.com',
+                message: 'iLoveCrypto',
+                store_name: 'Shopcek'
+            }
         })
     )
 

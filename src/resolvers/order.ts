@@ -30,14 +30,13 @@ export async function newOrder() {
 
     // cart with variant id
     let cart = user.cart.map((item: any, index: number) => {
-        let variants = products.find((product)=>{
+        let variants = products.find((product) => {
             return product.slug === item.slug
         }).variants as any[]
 
         let variant = variants.find((variant) => {
             return variant.size === item.options.size && variant.color === item.options.color
         })
-
 
         return {
             variantId: variant.variantId,
@@ -55,11 +54,9 @@ export async function newOrder() {
         })
     )
 
-
     try {
         let newOrder = await newOrderPrintful({ items, recipient: user.recipient })
-    }
-    catch (e:any){
+    } catch (e: any) {
         console.log(e.response)
     }
 
