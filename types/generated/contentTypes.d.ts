@@ -625,6 +625,30 @@ export interface ApiContactContact extends Schema.CollectionType {
     }
 }
 
+export interface ApiPrintfulOrderPrintfulOrder extends Schema.CollectionType {
+    collectionName: 'printful_orders'
+    info: {
+        singularName: 'printful-order'
+        pluralName: 'printful-orders'
+        displayName: 'printfulOrder'
+        description: ''
+    }
+    options: {
+        draftAndPublish: false
+    }
+    attributes: {
+        items: Attribute.JSON
+        transaction: Attribute.String
+        printful: Attribute.JSON
+        user: Attribute.Relation<'api::printful-order.printful-order', 'oneToOne', 'plugin::users-permissions.user'>
+        error: Attribute.JSON
+        createdAt: Attribute.DateTime
+        updatedAt: Attribute.DateTime
+        createdBy: Attribute.Relation<'api::printful-order.printful-order', 'oneToOne', 'admin::user'> & Attribute.Private
+        updatedBy: Attribute.Relation<'api::printful-order.printful-order', 'oneToOne', 'admin::user'> & Attribute.Private
+    }
+}
+
 export interface ApiProductProduct extends Schema.CollectionType {
     collectionName: 'products'
     info: {
@@ -753,6 +777,7 @@ declare module '@strapi/types' {
             'plugin::users-permissions.user': PluginUsersPermissionsUser
             'api::category.category': ApiCategoryCategory
             'api::contact.contact': ApiContactContact
+            'api::printful-order.printful-order': ApiPrintfulOrderPrintfulOrder
             'api::product.product': ApiProductProduct
             'api::promo-code.promo-code': ApiPromoCodePromoCode
         }

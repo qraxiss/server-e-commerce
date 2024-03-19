@@ -37,11 +37,12 @@ import {
 
 import { accountInformation, accountInformationType, recipient, recipientTpye, updateRecipient, updateRecipientTpye } from './user'
 
-import { newOrder, newOrderType, orders, ordersType } from './order'
+import { newOrder, newOrderType, orders, ordersType, newPrintfulOrder, newPrintfulOrderType, printfulOrdersByUser, printfulOrdersByUserType, printfulOrderWithProducts, printfulOrderWithProductsType } from './order'
 
 import { registerWithDefaultValues, registerWithDefaultValuesType } from './user/auth'
 
 let typeList = [
+    newPrintfulOrderType,printfulOrdersByUserType,printfulOrderWithProductsType,
     recipientTpye,
     ordersType,
     updateRecipientTpye,
@@ -93,6 +94,12 @@ export function createCustomMutationResolver({ strapi }) {
                 },
                 nonce: {
                     auth: false
+                },
+                printfulOrder: {
+                    auth: false
+                },
+                printfulOrderWithProducts: {
+                    auth: false
                 }
             },
             Mutation: {
@@ -114,6 +121,12 @@ export function createCustomMutationResolver({ strapi }) {
             Query: {
                 orders: {
                     resolve: orders
+                },
+                printfulOrdersByUser: {
+                    resolve: printfulOrdersByUser
+                },
+                printfulOrderWithProducts: {
+                    resolve: printfulOrderWithProducts
                 },
                 recipient: {
                     resolve: recipient
@@ -147,6 +160,9 @@ export function createCustomMutationResolver({ strapi }) {
                 }
             },
             Mutation: {
+                newPrintfulOrder: {
+                    resolve: newPrintfulOrder
+                },
                 updateRecipient: {
                     resolve: updateRecipient
                 },

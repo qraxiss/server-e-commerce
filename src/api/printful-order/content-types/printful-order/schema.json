@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "printful_orders",
+  "info": {
+    "singularName": "printful-order",
+    "pluralName": "printful-orders",
+    "displayName": "printfulOrder",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "items": {
+      "type": "json"
+    },
+    "transaction": {
+      "type": "string"
+    },
+    "printful": {
+      "type": "json"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "error": {
+      "type": "json"
+    }
+  }
+}
