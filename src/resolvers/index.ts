@@ -22,7 +22,16 @@ import { wishlist, wishlistType, addWishlist, addWishlistType, deleteWishListTyp
 
 import { syncPrintful, syncPrintfulType } from './printful'
 
-import { nonce, nonceType, registerWithWallet, registerWithWalletType, loginWithWallet, loginWithWalletType } from './wallet'
+import {
+    nonce,
+    nonceType,
+    registerWithWallet,
+    registerWithWalletType,
+    loginWithWallet,
+    loginWithWalletType,
+    connectWallet,
+    connectWalletType
+} from './wallet'
 
 import {
     cart,
@@ -59,6 +68,7 @@ import { addXp, addXpType, xp, xpType } from './earn/xp'
 let typeList = [
     addXpType,
     xpType,
+    connectWalletType,
     newPrintfulOrderType,
     getDomainsByUserType,
     chooseDomainType,
@@ -128,6 +138,9 @@ export function createCustomMutationResolver({ strapi }) {
                 registerWithWallet: {
                     auth: false
                 },
+                connectWallet: {
+                    auth: false
+                },
                 loginWithWallet: {
                     auth: false
                 },
@@ -190,6 +203,9 @@ export function createCustomMutationResolver({ strapi }) {
             Mutation: {
                 newPrintfulOrder: {
                     resolve: newPrintfulOrder
+                },
+                connectWallet: {
+                    resolve: connectWallet
                 },
                 addXp: {
                     resolve: addXp

@@ -44,29 +44,15 @@ export const registerWithWalletType = `
 `
 
 export async function registerWithWallet(obj, { walletAddress }, context) {
-    let username = generateUsername()
-
     let info = {
         walletAddress,
-        username,
-        password: username,
-        email: `${username}@shopcek.com`,
+        username: walletAddress,
+        password: generateUsername(),
+        email: `${walletAddress}@shopcek.com`,
         wishlist: [],
         cart: [],
         orders: [],
-        recipient: {
-            zip: '91313',
-            city: 'Newyork',
-            name: 'qraxiss',
-            phone: '+155555555',
-            address1: 'Bla bla bla',
-            address2: 'Bla bla bla',
-            state_code: 'CA',
-            state_name: 'Sample State Name',
-            country_code: 'US',
-            country_name: 'United States',
-            email: `${username}@shopcek.com`
-        }
+        recipient: {}
     }
 
     let { koaContext } = context
@@ -75,6 +61,52 @@ export async function registerWithWallet(obj, { walletAddress }, context) {
 
     await (strapi.plugin('users-permissions').controller('auth') as any).register(koaContext)
     const output = koaContext.body
+
+    return output
+}
+
+export const connectWalletType = `
+    type Mutation {
+        connectWallet(walletAddress:String!): UsersPermissionsLoginPayload!
+    }
+`
+
+export async function connectWallet(obj, { walletAddress }, context) {
+    let user = await strapi.db.query('plugin::users-permissions.user').findOne({
+        where: {
+            walletAddress
+        }
+    })
+
+    if (user) {
+        return {
+            jwt: getService('jwt').issue({ id: user.id }),
+            user
+        }
+    }
+
+    // if user not registered
+    let info = {
+        walletAddress,
+        username: walletAddress,
+        password: generateUsername(),
+        email: `${walletAddress}@shopcek.com`,
+        wishlist: [],
+        cart: [],
+        orders: [],
+        recipient: {}
+    }
+    let { koaContext } = context
+    koaContext.request.body = toPlainObject(info)
+
+    await (strapi.plugin('users-permissions').controller('auth') as any).register(koaContext)
+    const output = koaContext.body
+
+    await strapi.db.query('api::earn.earn').create({
+        data: {
+            user: output.user.id
+        }
+    })
 
     return output
 }
