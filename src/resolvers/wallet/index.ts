@@ -107,7 +107,7 @@ export async function connectWallet(obj, { walletAddress }, context) {
             user: output.user.id,
             login: {
                 loginCount: 0,
-                lastLogin: (new Date('2020-01-01')).valueOf()
+                lastLogin: new Date('2020-01-01').valueOf()
             }
         }
     })

@@ -21,9 +21,27 @@ export async function spin(obj, { point }, context) {
         },
         data: {
             experiencePoints: experiencePoints + point,
-            lastWheelSpinTime: (new Date()).valueOf()
+            lastWheelSpinTime: new Date().valueOf()
         }
     })
 
     return currentExperiencePoints
+}
+
+export const spinDataType = `
+    type Query {
+        spinData: JSON!
+    }
+`
+
+export async function spinData() {
+    let { lastWheelSpinTime } = await strapi.db.query('api::earn.earn').findOne({
+        where: {
+            user: {
+                id: strapi.requestContext.get().state.user.id
+            }
+        }
+    })
+
+    return lastWheelSpinTime
 }

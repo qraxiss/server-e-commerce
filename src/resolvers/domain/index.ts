@@ -69,7 +69,7 @@ export const checkDomainType = `
     }
 `
 
-export async function checkDomain(obj, {domain}, context){
+export async function checkDomain(obj, { domain }, context) {
     let res = await strapi.db.query('api::domain.domain').findOne({
         where: {
             domain,

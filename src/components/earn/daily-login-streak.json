@@ -1,20 +1,20 @@
 {
-  "collectionName": "components_earn_daily_login_streaks",
-  "info": {
-    "displayName": "dailyLoginStreak",
-    "description": ""
-  },
-  "options": {},
-  "attributes": {
-    "loginCount": {
-      "type": "integer",
-      "required": true,
-      "default": 0
+    "collectionName": "components_earn_daily_login_streaks",
+    "info": {
+        "displayName": "dailyLoginStreak",
+        "description": ""
     },
-    "lastLogin": {
-      "type": "datetime",
-      "required": true,
-      "default": "2024-03-19T21:00:00.000Z"
+    "options": {},
+    "attributes": {
+        "loginCount": {
+            "type": "integer",
+            "required": true,
+            "default": 0
+        },
+        "lastLogin": {
+            "type": "datetime",
+            "required": true,
+            "default": "2024-03-19T21:00:00.000Z"
+        }
     }
-  }
 }

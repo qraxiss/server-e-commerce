@@ -19,7 +19,7 @@ export async function loginStreak(obj, { point }, context) {
         data.login.loginCount = data.login.loginCount + 1
     }
 
-    data.login.lastLogin = (new Date()).valueOf()
+    data.login.lastLogin = new Date().valueOf()
 
     data.experiencePoints = data.experiencePoints + point
 
@@ -35,4 +35,22 @@ export async function loginStreak(obj, { point }, context) {
     })
 
     return currentExperiencePoints
+}
+
+export const loginDataType = `
+    type Query {
+        loginData: JSON!
+    }
+`
+
+export async function loginData() {
+    let { login } = await strapi.db.query('api::earn.earn').findOne({
+        where: {
+            user: {
+                id: strapi.requestContext.get().state.user.id
+            }
+        }
+    })
+
+    return login
 }

@@ -65,14 +65,16 @@ import { getDomainsByUser, getDomainsByUserType, chooseDomain, chooseDomainType,
 
 import { addXp, addXpType, xp, xpType } from './earn/xp'
 
-import { spin, spinType } from './earn/spin'
-import { loginStreak, loginStreakType } from './earn/login'
+import { spin, spinType, spinData, spinDataType } from './earn/spin'
+import { loginStreak, loginStreakType, loginDataType, loginData } from './earn/login'
 
 import { checkDomain, checkDomainType } from './domain'
 
 let typeList = [
     addXpType,
     loginStreakType,
+    loginDataType,
+    spinDataType,
     checkDomainType,
     spinType,
     xpType,
@@ -164,6 +166,12 @@ export function createCustomMutationResolver({ strapi }) {
             Query: {
                 orders: {
                     resolve: orders
+                },
+                spinData: {
+                    resolve: spinData
+                },
+                loginData: {
+                    resolve: loginData
                 },
                 checkDomain: {
                     resolve: checkDomain
