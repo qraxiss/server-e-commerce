@@ -104,7 +104,11 @@ export async function connectWallet(obj, { walletAddress }, context) {
 
     await strapi.db.query('api::earn.earn').create({
         data: {
-            user: output.user.id
+            user: output.user.id,
+            login: {
+                loginCount: 0,
+                lastLogin: (new Date('2020-01-01')).valueOf()
+            }
         }
     })
 

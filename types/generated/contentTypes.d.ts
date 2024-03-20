@@ -661,8 +661,8 @@ export interface ApiEarnEarn extends Schema.CollectionType {
     attributes: {
         user: Attribute.Relation<'api::earn.earn', 'oneToOne', 'plugin::users-permissions.user'>
         experiencePoints: Attribute.Integer & Attribute.Required & Attribute.DefaultTo<0>
-        lastWheelSpinTime: Attribute.DateTime
-        dailyLoginStreak: Attribute.Integer
+        login: Attribute.JSON & Attribute.Required
+        lastWheelSpinTime: Attribute.BigInteger & Attribute.Required & Attribute.DefaultTo<'1577836800000'>
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::earn.earn', 'oneToOne', 'admin::user'> & Attribute.Private
