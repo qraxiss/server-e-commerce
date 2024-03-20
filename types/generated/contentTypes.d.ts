@@ -573,6 +573,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
         wishlist: Attribute.JSON
         recipient: Attribute.JSON
         orders: Attribute.JSON
+        selected_domain: Attribute.Relation<'plugin::users-permissions.user', 'oneToOne', 'api::domain.domain'>
         createdAt: Attribute.DateTime
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'plugin::users-permissions.user', 'oneToOne', 'admin::user'> & Attribute.Private
@@ -622,6 +623,49 @@ export interface ApiContactContact extends Schema.CollectionType {
         updatedAt: Attribute.DateTime
         createdBy: Attribute.Relation<'api::contact.contact', 'oneToOne', 'admin::user'> & Attribute.Private
         updatedBy: Attribute.Relation<'api::contact.contact', 'oneToOne', 'admin::user'> & Attribute.Private
+    }
+}
+
+export interface ApiDomainDomain extends Schema.CollectionType {
+    collectionName: 'domains'
+    info: {
+        singularName: 'domain'
+        pluralName: 'domains'
+        displayName: 'domain'
+        description: ''
+    }
+    options: {
+        draftAndPublish: false
+    }
+    attributes: {
+        domain: Attribute.String & Attribute.Required & Attribute.Unique
+        user: Attribute.Relation<'api::domain.domain', 'oneToOne', 'plugin::users-permissions.user'>
+        createdAt: Attribute.DateTime
+        updatedAt: Attribute.DateTime
+        createdBy: Attribute.Relation<'api::domain.domain', 'oneToOne', 'admin::user'> & Attribute.Private
+        updatedBy: Attribute.Relation<'api::domain.domain', 'oneToOne', 'admin::user'> & Attribute.Private
+    }
+}
+
+export interface ApiEarnEarn extends Schema.CollectionType {
+    collectionName: 'earns'
+    info: {
+        singularName: 'earn'
+        pluralName: 'earns'
+        displayName: 'earn'
+    }
+    options: {
+        draftAndPublish: false
+    }
+    attributes: {
+        user: Attribute.Relation<'api::earn.earn', 'oneToOne', 'plugin::users-permissions.user'>
+        experiencePoints: Attribute.Integer
+        lastWheelSpinTime: Attribute.DateTime
+        dailyLoginStreak: Attribute.Integer
+        createdAt: Attribute.DateTime
+        updatedAt: Attribute.DateTime
+        createdBy: Attribute.Relation<'api::earn.earn', 'oneToOne', 'admin::user'> & Attribute.Private
+        updatedBy: Attribute.Relation<'api::earn.earn', 'oneToOne', 'admin::user'> & Attribute.Private
     }
 }
 
@@ -777,6 +821,8 @@ declare module '@strapi/types' {
             'plugin::users-permissions.user': PluginUsersPermissionsUser
             'api::category.category': ApiCategoryCategory
             'api::contact.contact': ApiContactContact
+            'api::domain.domain': ApiDomainDomain
+            'api::earn.earn': ApiEarnEarn
             'api::printful-order.printful-order': ApiPrintfulOrderPrintfulOrder
             'api::product.product': ApiProductProduct
             'api::promo-code.promo-code': ApiPromoCodePromoCode

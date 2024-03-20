@@ -37,12 +37,30 @@ import {
 
 import { accountInformation, accountInformationType, recipient, recipientTpye, updateRecipient, updateRecipientTpye } from './user'
 
-import { newOrder, newOrderType, orders, ordersType, newPrintfulOrder, newPrintfulOrderType, printfulOrdersByUser, printfulOrdersByUserType, printfulOrderWithProducts, printfulOrderWithProductsType } from './order'
+import {
+    newOrder,
+    newOrderType,
+    orders,
+    ordersType,
+    newPrintfulOrder,
+    newPrintfulOrderType,
+    printfulOrdersByUser,
+    printfulOrdersByUserType,
+    printfulOrderWithProducts,
+    printfulOrderWithProductsType
+} from './order'
 
 import { registerWithDefaultValues, registerWithDefaultValuesType } from './user/auth'
 
+import { getDomainsByUser, getDomainsByUserType, chooseDomain, chooseDomainType, addNewDomainToUser, addNewDomainToUserType } from './domain'
+
 let typeList = [
-    newPrintfulOrderType,printfulOrdersByUserType,printfulOrderWithProductsType,
+    newPrintfulOrderType,
+    getDomainsByUserType,
+    chooseDomainType,
+    addNewDomainToUserType,
+    printfulOrdersByUserType,
+    printfulOrderWithProductsType,
     recipientTpye,
     ordersType,
     updateRecipientTpye,
@@ -122,6 +140,9 @@ export function createCustomMutationResolver({ strapi }) {
                 orders: {
                     resolve: orders
                 },
+                getDomainsByUser: {
+                    resolve: getDomainsByUser
+                },
                 printfulOrdersByUser: {
                     resolve: printfulOrdersByUser
                 },
@@ -162,6 +183,12 @@ export function createCustomMutationResolver({ strapi }) {
             Mutation: {
                 newPrintfulOrder: {
                     resolve: newPrintfulOrder
+                },
+                chooseDomain: {
+                    resolve: chooseDomain
+                },
+                addNewDomainToUser: {
+                    resolve: addNewDomainToUser
                 },
                 updateRecipient: {
                     resolve: updateRecipient

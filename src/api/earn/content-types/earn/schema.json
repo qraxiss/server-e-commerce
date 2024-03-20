@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "earns",
+  "info": {
+    "singularName": "earn",
+    "pluralName": "earns",
+    "displayName": "earn"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "experiencePoints": {
+      "type": "integer"
+    },
+    "lastWheelSpinTime": {
+      "type": "datetime"
+    },
+    "dailyLoginStreak": {
+      "type": "integer"
+    }
+  }
+}
