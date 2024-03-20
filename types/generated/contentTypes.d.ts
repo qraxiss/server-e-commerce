@@ -653,13 +653,14 @@ export interface ApiEarnEarn extends Schema.CollectionType {
         singularName: 'earn'
         pluralName: 'earns'
         displayName: 'earn'
+        description: ''
     }
     options: {
         draftAndPublish: false
     }
     attributes: {
         user: Attribute.Relation<'api::earn.earn', 'oneToOne', 'plugin::users-permissions.user'>
-        experiencePoints: Attribute.Integer
+        experiencePoints: Attribute.Integer & Attribute.Required & Attribute.DefaultTo<0>
         lastWheelSpinTime: Attribute.DateTime
         dailyLoginStreak: Attribute.Integer
         createdAt: Attribute.DateTime

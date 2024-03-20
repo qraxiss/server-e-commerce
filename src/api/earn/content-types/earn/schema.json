@@ -4,7 +4,8 @@
   "info": {
     "singularName": "earn",
     "pluralName": "earns",
-    "displayName": "earn"
+    "displayName": "earn",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -17,7 +18,9 @@
       "target": "plugin::users-permissions.user"
     },
     "experiencePoints": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0,
+      "required": true
     },
     "lastWheelSpinTime": {
       "type": "datetime"
