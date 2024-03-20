@@ -62,3 +62,22 @@ export async function chooseDomain(obj, { domain }, context) {
         }
     })
 }
+
+export const checkDomainType = `
+    type Query {
+        checkDomain(domain: String!): JSON!
+    }
+`
+
+export async function checkDomain(obj, {domain}, context){
+    let res = await strapi.db.query('api::domain.domain').findOne({
+        where: {
+            domain,
+            user: {
+                id: strapi.requestContext.get().state.user.id
+            }
+        }
+    })
+
+    return !res
+}

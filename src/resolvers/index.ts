@@ -68,9 +68,12 @@ import { addXp, addXpType, xp, xpType } from './earn/xp'
 import { spin, spinType } from './earn/spin'
 import { loginStreak, loginStreakType } from './earn/login'
 
+import { checkDomain, checkDomainType } from './domain'
+
 let typeList = [
     addXpType,
     loginStreakType,
+    checkDomainType,
     spinType,
     xpType,
     connectWalletType,
@@ -161,6 +164,9 @@ export function createCustomMutationResolver({ strapi }) {
             Query: {
                 orders: {
                     resolve: orders
+                },
+                checkDomain: {
+                    resolve: checkDomain
                 },
                 xp: {
                     resolve: xp
