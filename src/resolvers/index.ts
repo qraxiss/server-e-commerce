@@ -54,10 +54,11 @@ import { registerWithDefaultValues, registerWithDefaultValuesType } from './user
 
 import { getDomainsByUser, getDomainsByUserType, chooseDomain, chooseDomainType, addNewDomainToUser, addNewDomainToUserType } from './domain'
 
-import { addXp, addXpType } from './earn/xp'
+import { addXp, addXpType, xp, xpType } from './earn/xp'
 
 let typeList = [
     addXpType,
+    xpType,
     newPrintfulOrderType,
     getDomainsByUserType,
     chooseDomainType,
@@ -142,6 +143,9 @@ export function createCustomMutationResolver({ strapi }) {
             Query: {
                 orders: {
                     resolve: orders
+                },
+                xp: {
+                    resolve: xp
                 },
                 getDomainsByUser: {
                     resolve: getDomainsByUser
