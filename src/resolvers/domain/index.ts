@@ -1,13 +1,12 @@
 import { GraphQLError } from 'graphql'
 
-
 export const getDomainsByUserType = `
     type Query {
         getDomainsByUser: [JSON!]
     }
 `
 
-export async function getDomainsByUser(){
+export async function getDomainsByUser() {
     let domains = await strapi.db.query('api::domain.domain').findMany({
         filters: {
             user: {
@@ -25,8 +24,8 @@ export const addNewDomainToUserType = `
     }
 `
 
-export async function addNewDomainToUser(obj, {domain}, context){
-    return await strapi.entityService.create('api::domain.domain',{
+export async function addNewDomainToUser(obj, { domain }, context) {
+    return await strapi.entityService.create('api::domain.domain', {
         data: {
             domain,
             user: strapi.requestContext.get().state.user.id
@@ -40,17 +39,17 @@ export const chooseDomainType = `
     }
 `
 
-export async function chooseDomain(obj, {domain}, context){
-    let {id} = await strapi.db.query('api::domain.domain').findOne({
-        where:{
+export async function chooseDomain(obj, { domain }, context) {
+    let { id } = await strapi.db.query('api::domain.domain').findOne({
+        where: {
             domain,
             user: {
-                id: strapi.requestContext.get().state.user.id 
+                id: strapi.requestContext.get().state.user.id
             }
         }
     })
 
-    if (!id){
+    if (!id) {
         throw new GraphQLError('Domain not found or user not have this domain!')
     }
 
@@ -62,5 +61,4 @@ export async function chooseDomain(obj, {domain}, context){
             selected_domain: id
         }
     })
-
 }

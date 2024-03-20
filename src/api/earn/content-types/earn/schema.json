@@ -1,32 +1,32 @@
 {
-  "kind": "collectionType",
-  "collectionName": "earns",
-  "info": {
-    "singularName": "earn",
-    "pluralName": "earns",
-    "displayName": "earn",
-    "description": ""
-  },
-  "options": {
-    "draftAndPublish": false
-  },
-  "pluginOptions": {},
-  "attributes": {
-    "user": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+    "kind": "collectionType",
+    "collectionName": "earns",
+    "info": {
+        "singularName": "earn",
+        "pluralName": "earns",
+        "displayName": "earn",
+        "description": ""
     },
-    "experiencePoints": {
-      "type": "integer",
-      "default": 0,
-      "required": true
+    "options": {
+        "draftAndPublish": false
     },
-    "lastWheelSpinTime": {
-      "type": "datetime"
-    },
-    "dailyLoginStreak": {
-      "type": "integer"
+    "pluginOptions": {},
+    "attributes": {
+        "user": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "plugin::users-permissions.user"
+        },
+        "experiencePoints": {
+            "type": "integer",
+            "default": 0,
+            "required": true
+        },
+        "lastWheelSpinTime": {
+            "type": "datetime"
+        },
+        "dailyLoginStreak": {
+            "type": "integer"
+        }
     }
-  }
 }

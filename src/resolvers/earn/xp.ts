@@ -4,8 +4,8 @@ export const addXpType = `
     }
 `
 
-export async function addXp(obj, {point}, context){
-    let {experiencePoints} = await strapi.db.query('api::earn.earn').findOne({
+export async function addXp(obj, { point }, context) {
+    let { experiencePoints } = await strapi.db.query('api::earn.earn').findOne({
         where: {
             user: {
                 id: strapi.requestContext.get().state.user.id
@@ -13,7 +13,7 @@ export async function addXp(obj, {point}, context){
         }
     })
 
-    let {experiencePoints:  currentExperiencePoints} = await strapi.db.query('api::earn.earn').update({
+    let { experiencePoints: currentExperiencePoints } = await strapi.db.query('api::earn.earn').update({
         where: {
             user: {
                 id: strapi.requestContext.get().state.user.id

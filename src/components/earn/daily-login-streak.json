@@ -1,17 +1,17 @@
 {
-  "collectionName": "components_earn_daily_login_streaks",
-  "info": {
-    "displayName": "dailyLoginStreak"
-  },
-  "options": {},
-  "attributes": {
-    "loginCount": {
-      "type": "integer",
-      "required": true
+    "collectionName": "components_earn_daily_login_streaks",
+    "info": {
+        "displayName": "dailyLoginStreak"
     },
-    "lastLogin": {
-      "type": "datetime",
-      "required": true
+    "options": {},
+    "attributes": {
+        "loginCount": {
+            "type": "integer",
+            "required": true
+        },
+        "lastLogin": {
+            "type": "datetime",
+            "required": true
+        }
     }
-  }
 }
