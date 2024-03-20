@@ -1,6 +1,6 @@
 export const addXpType = `
     type Mutation {
-        addXp(point:Int!) : JSON!
+        addXp(point:Int!) : Int!
     }
 `
 
