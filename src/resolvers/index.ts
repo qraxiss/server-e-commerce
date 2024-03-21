@@ -61,17 +61,27 @@ import {
 
 import { registerWithDefaultValues, registerWithDefaultValuesType } from './user/auth'
 
-import { getDomainsByUser, getDomainsByUserType, chooseDomain, chooseDomainType, addNewDomainToUser, addNewDomainToUserType } from './domain'
+import {
+    getDomainsByUser,
+    getDomainsByUserType,
+    chooseDomain,
+    chooseDomainType,
+    addNewDomainToUser,
+    addNewDomainToUserType,
+    checkDomain,
+    checkDomainType,
+    choosenDomain,
+    choosenDomainType
+} from './domain'
 
 import { addXp, addXpType, xp, xpType } from './earn/xp'
 
 import { spin, spinType, spinData, spinDataType } from './earn/spin'
 import { loginStreak, loginStreakType, loginDataType, loginData } from './earn/login'
 
-import { checkDomain, checkDomainType } from './domain'
-
 let typeList = [
     addXpType,
+    choosenDomainType,
     loginStreakType,
     loginDataType,
     spinDataType,
@@ -166,6 +176,9 @@ export function createCustomMutationResolver({ strapi }) {
             Query: {
                 orders: {
                     resolve: orders
+                },
+                choosenDomain: {
+                    resolve: choosenDomain
                 },
                 spinData: {
                     resolve: spinData

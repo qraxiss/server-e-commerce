@@ -81,3 +81,24 @@ export async function checkDomain(obj, { domain }, context) {
 
     return !res
 }
+
+
+export const choosenDomainType = `
+    type Query {
+        choosenDomain: JSON!
+    }
+`
+
+export async function choosenDomain(){
+
+    let {selected_domain, username} = await strapi.db.query('plugin::users-permissions.user').findOne({
+        where: {
+            id: strapi.requestContext.get().state.user.id
+        },
+        populate: {
+            selected_domain: '*'
+        }
+    })
+
+    return username || selected_domain
+}
