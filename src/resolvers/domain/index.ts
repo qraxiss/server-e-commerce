@@ -100,5 +100,5 @@ export async function choosenDomain(){
         }
     })
 
-    return username || selected_domain
+    return selected_domain || username
 }
